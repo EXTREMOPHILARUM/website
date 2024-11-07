@@ -3,11 +3,11 @@ import './Hero.css';
 import '../shared/animations.css';
 import { useTheme } from '../../contexts/ThemeContext';
 import useIntersectionObserver from '../../hooks/useIntersectionObserver';
+import HighlightCard from './HighlightCard';
 
 const Hero = () => {
   const { theme, toggleTheme } = useTheme();
   const [heroRef, isHeroVisible] = useIntersectionObserver();
-  const [highlightsRef, isHighlightsVisible] = useIntersectionObserver({ threshold: 0.2 });
 
   const highlights = [
     { number: '5+', label: 'Years Experience' },
@@ -41,12 +41,13 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className={`hero-highlights initially-hidden ${isHighlightsVisible ? 'visible' : ''}`} ref={highlightsRef}>
+        <div className="hero-highlights">
           {highlights.map((highlight, index) => (
-            <div key={index} className="highlight-card">
-              <span className="highlight-number">{highlight.number}</span>
-              <span className="highlight-label">{highlight.label}</span>
-            </div>
+            <HighlightCard
+              key={index}
+              highlight={highlight}
+              index={index}
+            />
           ))}
         </div>
       </div>

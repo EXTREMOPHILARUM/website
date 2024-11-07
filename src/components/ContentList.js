@@ -12,13 +12,13 @@ const ContentList = ({ type, items, onItemClick }) => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('fade-in');
+          entry.target.classList.add('visible');
           observer.unobserve(entry.target);
         }
       });
     }, {
-      threshold: 0.1,
-      rootMargin: '50px'
+      threshold: 0,
+      rootMargin: '0px'
     });
 
     // Observe title
@@ -98,7 +98,7 @@ const ContentList = ({ type, items, onItemClick }) => {
 
   return (
     <div className="content-list">
-      <h2 ref={titleRef}>{sectionTitles[type] || type}</h2>
+      <h2 ref={titleRef} className="section-title">{sectionTitles[type] || type}</h2>
       <div ref={listRef}>
         {renderContent()}
       </div>

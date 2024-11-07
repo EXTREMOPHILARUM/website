@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import ProjectCard from './ProjectCard';
+import ProjectGridItem from './ProjectGridItem';
 import ProjectModal from './ProjectModal';
-import useAnimatedList from '../../hooks/useAnimatedList';
+import useIntersectionObserver from '../../hooks/useIntersectionObserver';
 import { loadAllContent } from '../../utils/contentLoader';
 import '../shared/animations.css';
 import './Projects.css';
 
 const Projects = () => {
-  const { listRef, titleRef } = useAnimatedList();
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
+  const [titleRef, isTitleVisible] = useIntersectionObserver();
 
   useEffect(() => {
     const loadProjects = async () => {
@@ -37,16 +38,18 @@ const Projects = () => {
   if (error) return <div>Error loading projects: {error}</div>;
 
   return (
-    <div className="content-list">
-      <h2 ref={titleRef}>Featured Projects</h2>
-      <div ref={listRef} className="content-grid projects-grid">
-        {projects.map((item) => (
-          <div key={item.slug} className="grid-item">
-            <ProjectCard 
-              item={item}
-              onItemClick={() => handleProjectClick(item)}
-            />
-          </div>
+    <section id="projects" className="projects-section">
+      <h2 ref={titleRef} className={`section-title initially-hidden ${isTitleVisible ? 'visible' : ''}`}>
+        Featured Projects
+      </h2>
+      <div className="content-grid projects-grid">
+        {projects.map((item, index) => (
+          <ProjectGridItem
+            key={item.slug}
+            item={item}
+            index={index}
+            onItemClick={() => handleProjectClick(item)}
+          />
         ))}
       </div>
 
@@ -55,7 +58,7 @@ const Projects = () => {
         onClose={() => setSelectedProject(null)}
         project={selectedProject}
       />
-    </div>
+    </section>
   );
 };
 

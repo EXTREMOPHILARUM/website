@@ -1,3 +1,15 @@
+.blog-section {
+  padding: 3rem 1rem;
+  width: 100%;
+}
+
+.blog-section .section-title {
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+  font-size: 2rem;
+  text-align: center;
+}
+
 .content-card.blog {
   background: var(--card-bg);
   border-radius: 12px;

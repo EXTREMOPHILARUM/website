@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import BlogCard from './BlogCard';
+import BlogGridItem from './BlogGridItem';
 import BlogModal from './BlogModal';
-import useAnimatedList from '../../hooks/useAnimatedList';
+import useIntersectionObserver from '../../hooks/useIntersectionObserver';
 import { loadAllContent } from '../../utils/contentLoader';
 import '../shared/animations.css';
 import './Blog.css';
 
 const Blog = () => {
-  const { listRef, titleRef } = useAnimatedList();
-  const [blogPosts, setBlogPosts] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const [titleRef, isTitleVisible] = useIntersectionObserver();
+
   useEffect(() => {
-    const loadBlog = async () => {
+    const loadPosts = async () => {
       try {
         setLoading(true);
         const blogData = await loadAllContent('blog');
-        setBlogPosts(blogData);
+        setPosts(blogData);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -26,10 +27,10 @@ const Blog = () => {
       }
     };
 
-    loadBlog();
+    loadPosts();
   }, []);
 
-  const handleBlogClick = (post) => {
+  const handlePostClick = (post) => {
     setSelectedPost(post);
   };
 
@@ -37,16 +38,18 @@ const Blog = () => {
   if (error) return <div>Error loading blog posts: {error}</div>;
 
   return (
-    <div className="content-list">
-      <h2 ref={titleRef}>Blog Posts</h2>
-      <div ref={listRef} className="content-grid blog-grid">
-        {blogPosts.map((item) => (
-          <div key={item.slug} className="grid-item">
-            <BlogCard 
-              item={item}
-              onItemClick={() => handleBlogClick(item)}
-            />
-          </div>
+    <section className="blog-section">
+      <h2 ref={titleRef} className={`section-title initially-hidden ${isTitleVisible ? 'visible' : ''}`}>
+        Latest Articles
+      </h2>
+      <div className="content-grid blog-grid">
+        {posts.map((item, index) => (
+          <BlogGridItem
+            key={item.slug}
+            item={item}
+            index={index}
+            onItemClick={() => handlePostClick(item)}
+          />
         ))}
       </div>
 
@@ -55,7 +58,7 @@ const Blog = () => {
         onClose={() => setSelectedPost(null)}
         post={selectedPost}
       />
-    </div>
+    </section>
   );
 };
 

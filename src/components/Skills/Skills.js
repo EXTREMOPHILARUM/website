@@ -1,11 +1,14 @@
-import React, { useEffect} from 'react';
+import React from 'react';
 import './Skills.css';
+import '../shared/animations.css';
 import { 
   SiAmazon, SiGooglecloud, SiMicrosoftazure, SiKubernetes, 
   SiTerraform, SiJenkins, SiPython, SiJavascript, 
   SiReact, SiNodedotjs, SiGo, SiPostman
 } from 'react-icons/si';
 import { BiShield, BiLock, BiBug, BiCodeAlt, BiServer, BiGitBranch } from 'react-icons/bi';
+import useIntersectionObserver from '../../hooks/useIntersectionObserver';
+import SkillCategory from './SkillCategory';
 
 const Skills = () => {
   const skillCategories = [
@@ -44,42 +47,20 @@ const Skills = () => {
     }
   ];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('fade-in');
-          observer.unobserve(entry.target); // Stop observing once animation is triggered
-        }
-      });
-    }, {
-      threshold: 0.1, // Trigger when 10% of the element is visible
-      rootMargin: '50px' // Start animation slightly before element comes into view
-    });
-
-    // Get all skill category elements and observe them
-    const skillElements = document.querySelectorAll('.skill-category');
-    skillElements.forEach(element => observer.observe(element));
-
-    return () => observer.disconnect(); // Cleanup on unmount
-  }, []);
+  const [titleRef, isTitleVisible] = useIntersectionObserver({ threshold: 0.1 });
 
   return (
     <section className="skills-section">
-      <h2 className="section-title">Skills & Expertise</h2>
+      <h2 ref={titleRef} className={`section-title initially-hidden ${isTitleVisible ? 'visible' : ''}`}>
+        Skills & Expertise
+      </h2>
       <div className="skills-grid">
         {skillCategories.map((category, index) => (
-          <div key={index} className="skill-category">
-            <h3>{category.title}</h3>
-            <ul>
-              {category.skills.map((skill, skillIndex) => (
-                <li key={skillIndex}>
-                  <span className="skill-icon">{skill.icon}</span>
-                  <span className="skill-name">{skill.name}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <SkillCategory
+            key={category.title}
+            category={category}
+            index={index}
+          />
         ))}
       </div>
     </section>

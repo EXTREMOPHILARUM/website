@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import WorkTimelineItem from './WorkTimelineItem';
 import WorkModal from './WorkModal';
-import useAnimatedList from '../../hooks/useAnimatedList';
+import useIntersectionObserver from '../../hooks/useIntersectionObserver';
 import { loadAllContent } from '../../utils/contentLoader';
 import '../shared/animations.css';
 import './WorkExperience.css';
 
 const WorkExperience = () => {
-  const { listRef, titleRef } = useAnimatedList();
   const [workExperience, setWorkExperience] = useState([]);
   const [selectedWork, setSelectedWork] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const [titleRef, isTitleVisible] = useIntersectionObserver();
 
   useEffect(() => {
     const loadWork = async () => {
@@ -37,13 +38,16 @@ const WorkExperience = () => {
   if (error) return <div>Error loading work experience: {error}</div>;
 
   return (
-    <div className="content-list">
-      <h2 ref={titleRef}>Work Experience</h2>
-      <div ref={listRef} className="timeline">
-        {workExperience.map((item) => (
+    <section className="work-section">
+      <h2 ref={titleRef} className={`section-title initially-hidden ${isTitleVisible ? 'visible' : ''}`}>
+        Work Experience
+      </h2>
+      <div className="timeline">
+        {workExperience.map((item, index) => (
           <WorkTimelineItem
             key={item.slug}
             item={item}
+            index={index}
             onItemClick={() => handleWorkClick(item)}
           />
         ))}
@@ -54,7 +58,7 @@ const WorkExperience = () => {
         onClose={() => setSelectedWork(null)}
         work={selectedWork}
       />
-    </div>
+    </section>
   );
 };
 
