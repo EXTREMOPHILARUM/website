@@ -1,40 +1,25 @@
-import React, { useState } from 'react';
-import ContentList from '../ContentList';
-import WorkModal from './WorkModal';
-import { loadWork } from '../../utils/contentLoader';
+import React from 'react';
+import WorkTimelineItem from './WorkTimelineItem';
+import useAnimatedList from '../../hooks/useAnimatedList';
+import '../shared/animations.css';
 import './WorkExperience.css';
 
-const WorkExperience = ({ workExperience }) => {
-  const [selectedWork, setSelectedWork] = useState(null);
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const handleWorkClick = async (slug) => {
-    try {
-      const workContent = await loadWork(slug);
-      setSelectedWork(workContent);
-      setModalOpen(true);
-    } catch (err) {
-      console.error('Error loading work experience:', err);
-    }
-  };
+const WorkExperience = ({ workExperience, onItemClick }) => {
+  const { listRef, titleRef } = useAnimatedList();
 
   return (
-    <section className="work-experience-section">
-      <ContentList 
-        type="Work" 
-        items={workExperience} 
-        onItemClick={handleWorkClick}
-      />
-
-      <WorkModal 
-        isOpen={modalOpen}
-        onClose={() => {
-          setModalOpen(false);
-          setSelectedWork(null);
-        }}
-        work={selectedWork}
-      />
-    </section>
+    <div className="content-list">
+      <h2 ref={titleRef}>Work Experience</h2>
+      <div ref={listRef} className="timeline">
+        {workExperience.map((item) => (
+          <WorkTimelineItem 
+            key={item.slug}
+            item={item}
+            onItemClick={onItemClick}
+          />
+        ))}
+      </div>
+    </div>
   );
 };
 

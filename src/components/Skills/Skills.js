@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect} from 'react';
 import './Skills.css';
 import { 
   SiAmazon, SiGooglecloud, SiMicrosoftazure, SiKubernetes, 
@@ -43,6 +43,26 @@ const Skills = () => {
       ]
     }
   ];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in');
+          observer.unobserve(entry.target); // Stop observing once animation is triggered
+        }
+      });
+    }, {
+      threshold: 0.1, // Trigger when 10% of the element is visible
+      rootMargin: '50px' // Start animation slightly before element comes into view
+    });
+
+    // Get all skill category elements and observe them
+    const skillElements = document.querySelectorAll('.skill-category');
+    skillElements.forEach(element => observer.observe(element));
+
+    return () => observer.disconnect(); // Cleanup on unmount
+  }, []);
 
   return (
     <section className="skills-section">

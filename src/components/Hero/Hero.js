@@ -1,9 +1,14 @@
 import React from 'react';
 import './Hero.css';
+import '../shared/animations.css';
 import { useTheme } from '../../contexts/ThemeContext';
+import useIntersectionObserver from '../../hooks/useIntersectionObserver';
 
 const Hero = () => {
   const { theme, toggleTheme } = useTheme();
+  const heroRef = useIntersectionObserver();
+  const highlightsRef = useIntersectionObserver({ threshold: 0.2 });
+
   const highlights = [
     { number: '5+', label: 'Years Experience' },
     { number: '15+', label: 'Projects Delivered' },
@@ -20,7 +25,7 @@ const Hero = () => {
         {theme === 'light' ? '🌙' : '☀️'}
       </button>
       <div className="hero-content">
-        <div className="hero-main">
+        <div className="hero-main initially-hidden" ref={heroRef}>
           <div className="hero-text">
             <h1 className="hero-title">Hi, I'm Saurabh <span className="wave">👋</span></h1>
             <h2 className="hero-subtitle">Software Engineer & Cloud Architect</h2>
@@ -36,7 +41,7 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="hero-highlights">
+        <div className="hero-highlights initially-hidden" ref={highlightsRef}>
           {highlights.map((highlight, index) => (
             <div key={index} className="highlight-card">
               <span className="highlight-number">{highlight.number}</span>
