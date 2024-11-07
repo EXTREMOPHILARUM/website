@@ -1,29 +1,39 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { ANIMATION_CONFIG } from '../config/settings';
 
 const useIntersectionObserver = (options = {}) => {
-  const elementRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('fade-in');
-          observer.unobserve(entry.target);
+          setIsVisible(true);
+          // Once element is visible, stop observing
+          if (ref.current) {
+            observer.unobserve(ref.current);
+          }
         }
-      });
-    }, {
-      threshold: options.threshold || 0.1,
-      rootMargin: options.rootMargin || '50px'
-    });
+      },
+      {
+        threshold: options.threshold || ANIMATION_CONFIG.INTERSECTION_THRESHOLD,
+        rootMargin: options.rootMargin || ANIMATION_CONFIG.INTERSECTION_ROOT_MARGIN,
+      }
+    );
 
-    if (elementRef.current) {
-      observer.observe(elementRef.current);
+    if (ref.current) {
+      observer.observe(ref.current);
     }
 
-    return () => observer.disconnect();
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
   }, [options.threshold, options.rootMargin]);
 
-  return elementRef;
-}
+  return [ref, isVisible];
+};
 
 export default useIntersectionObserver;

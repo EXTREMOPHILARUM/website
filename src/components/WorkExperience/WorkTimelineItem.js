@@ -3,7 +3,7 @@ import { formatDate } from '../../utils/dateUtils';
 
 const WorkTimelineItem = ({ item, onItemClick }) => {
   return (
-    <div className="timeline-item" onClick={() => onItemClick && onItemClick(item.slug)}>
+    <div className="timeline-item" onClick={() => onItemClick && onItemClick(item)}>
       <div className="timeline-dot"></div>
       <div className="timeline-content">
         <div className="timeline-header">

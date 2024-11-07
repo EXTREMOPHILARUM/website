@@ -2,24 +2,24 @@ import React from 'react';
 import MarkdownContent from '../MarkdownContent';
 import './BlogModal.css';
 
-const BlogModal = ({ isOpen, onClose, blog }) => {
-  if (!isOpen || !blog) return null;
+const BlogModal = ({ isOpen, onClose, post }) => {
+  if (!isOpen || !post) return null;
 
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content blog-modal" onClick={e => e.stopPropagation()}>
         <button className="modal-close" onClick={onClose}>×</button>
         <div className="blog-modal-header">
-          <h2 className="blog-modal-title">{blog.title}</h2>
-          <div className="blog-modal-date">{blog.date}</div>
+          <h2 className="blog-modal-title">{post.title}</h2>
+          <div className="blog-modal-date">{post.date}</div>
           <div className="blog-modal-tags">
-            {blog.tags && blog.tags.map((tag, index) => (
+            {post.tags && post.tags.map((tag, index) => (
               <span key={index} className="tag">{tag}</span>
             ))}
           </div>
         </div>
         <div className="blog-modal-body">
-          <MarkdownContent content={blog.content} />
+          <MarkdownContent content={post.content} />
         </div>
       </div>
     </div>

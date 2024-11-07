@@ -1,87 +1,81 @@
-const parseFrontmatter = (content) => {
-  const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
-  const match = content.match(frontmatterRegex);
-  
-  if (!match) return { data: {}, content };
-  
-  const [, frontmatter, markdownContent] = match;
-  const data = {};
-  
-  frontmatter.split('\n').forEach(line => {
-    const [key, ...valueArr] = line.split(':');
-    if (key && valueArr.length) {
-      let value = valueArr.join(':').trim();
-      // Remove quotes if present
-      value = value.replace(/^["'](.*)["']$/, '$1');
-      
-      // Handle arrays in frontmatter (e.g., tags, technologies)
-      if (value.startsWith('[') && value.endsWith(']')) {
-        value = value
-          .slice(1, -1)
-          .split(',')
-          .map(item => item.trim().replace(/^["'](.*)["']$/, '$1'));
-      }
-      
-      data[key.trim()] = value;
-    }
-  });
+import { CONTENT_TYPES, CONTENT_STRUCTURE, CONTENT_PATHS, ERROR_MESSAGES } from '../config/settings';
+import { parseFrontmatter } from './frontmatterParser';
+import { mapWorkExperience } from './mappers/workMapper';
+import { mapBlogPost } from './mappers/blogMapper';
+import { mapProject } from './mappers/projectMapper';
 
-  return { data, content: markdownContent.trim() };
+/**
+ * Maps content based on type
+ * @param {string} contentType - Type of content
+ * @param {Object} data - Raw content data
+ * @param {string} content - Markdown content
+ * @param {string} slug - Content slug
+ * @returns {Object} Formatted content data
+ */
+const mapContent = (contentType, data, content, slug) => {
+  switch (contentType) {
+    case CONTENT_TYPES.WORK:
+      return mapWorkExperience(data, content, slug);
+    case CONTENT_TYPES.BLOG:
+      return mapBlogPost(data, content, slug);
+    case CONTENT_TYPES.PROJECTS:
+      return mapProject(data, content, slug);
+    default:
+      throw new Error(`${ERROR_MESSAGES.INVALID_CONTENT_TYPE} ${contentType}`);
+  }
 };
 
+/**
+ * Loads content from markdown file
+ * @param {string} contentType - Type of content to load
+ * @param {string} slug - Content slug
+ * @returns {Promise<Object|null>} Loaded and parsed content
+ */
 const loadContent = async (contentType, slug) => {
+  if (!contentType || !slug) {
+    throw new Error(ERROR_MESSAGES.MISSING_CONTENT_TYPE_SLUG);
+  }
+
+  if (!Object.values(CONTENT_TYPES).includes(contentType)) {
+    throw new Error(`${ERROR_MESSAGES.INVALID_CONTENT_TYPE} ${contentType}`);
+  }
+
   try {
-    const response = await fetch(`/content/${contentType}/${slug}/index.md`);
-    if (!response.ok) throw new Error('Content not found');
+    const response = await fetch(
+      `${CONTENT_PATHS.BASE}/${contentType}/${slug}/${CONTENT_PATHS.INDEX_FILE}`
+    );
+    if (!response.ok) {
+      throw new Error(`${ERROR_MESSAGES.CONTENT_NOT_FOUND} ${contentType}/${slug}`);
+    }
+
     const text = await response.text();
     const { data, content } = parseFrontmatter(text);
     
-    // For work experience, map the frontmatter fields correctly
-    if (contentType === 'work') {
-      return {
-        ...data,
-        title: data.position || data.title,
-        company: data.company,
-        location: data.location,
-        type: data.type || 'Full-time', // e.g., Remote, On-site, Hybrid
-        startDate: data.startDate,
-        endDate: data.endDate,
-        overview: data.overview || '',
-        technologies: data.technologies || [],
-        achievements: data.achievements || [],
-        tags: data.tags || [],
-        content: content.trim(),
-        slug
-      };
-    }
-    
-    // For other content types
-    return {
-      ...data,
-      content,
-      slug
-    };
+    return mapContent(contentType, data, content, slug);
   } catch (error) {
-    console.error('Error loading content:', error);
+    console.error(`Error loading ${contentType}/${slug}:`, error);
     return null;
   }
 };
 
-// Content directory structure
-const contentStructure = {
-  blog: ['automated-security-pipeline', 'high-availability-email-infrastructure', 'multi-cloud-trading-architecture'],
-  projects: ['confidential-trading-platform', 'flipkart-health-plus', 'password-manager'],
-  work: ['Turing', 'Safe', 'Prismberry', 'Navy', 'Afrost']
-};
-
+/**
+ * Loads all content of a specific type
+ * @param {string} type - Type of content to load
+ * @returns {Promise<Array>} Array of loaded content
+ */
 export const loadAllContent = async (type) => {
-  const slugs = contentStructure[type] || [];
+  if (!type || !CONTENT_STRUCTURE[type]) {
+    throw new Error(`${ERROR_MESSAGES.INVALID_CONTENT_TYPE} ${type}`);
+  }
+
+  const slugs = CONTENT_STRUCTURE[type];
   const contents = await Promise.all(
     slugs.map(slug => loadContent(type, slug))
   );
-  return contents.filter(content => content !== null);
+  return contents.filter(Boolean);
 };
 
-export const loadBlogPost = (slug) => loadContent('blog', slug);
-export const loadProject = (slug) => loadContent('projects', slug);
-export const loadWork = (slug) => loadContent('work', slug);
+// Convenience methods for loading specific content types
+export const loadBlogPost = (slug) => loadContent(CONTENT_TYPES.BLOG, slug);
+export const loadProject = (slug) => loadContent(CONTENT_TYPES.PROJECTS, slug);
+export const loadWork = (slug) => loadContent(CONTENT_TYPES.WORK, slug);

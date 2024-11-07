@@ -5,7 +5,7 @@ const ProjectCard = ({ item, onItemClick }) => {
   return (
     <div 
       className="content-card project no-image"
-      onClick={() => onItemClick && onItemClick(item.slug)}
+      onClick={() => onItemClick && onItemClick(item)}
     >
       <div className="card-content">
         <h3>{item.title}</h3>
