@@ -1,0 +1,228 @@
+.hero-section {
+  padding: 6rem 1rem;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  z-index: 10;
+}
+
+.theme-toggle:hover {
+  background: var(--bg-primary);
+  transform: rotate(15deg);
+}
+
+.hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 4rem;
+  margin-bottom: 4rem;
+}
+
+.hero-text {
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  margin: 0;
+  color: var(--text-primary);
+  line-height: 1.2;
+  animation: fadeInUp 0.8s ease;
+}
+
+.wave {
+  display: inline-block;
+  animation: wave 2.5s infinite;
+  transform-origin: 70% 70%;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+  color: var(--accent-color);
+  font-weight: 500;
+  animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+.hero-description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 1.5rem 0 2rem;
+  animation: fadeInUp 0.8s ease 0.4s both;
+  text-align: left;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  animation: fadeInUp 0.8s ease 0.6s both;
+}
+
+.cta-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta-button:first-child {
+  background: var(--accent-color);
+  color: var(--bg-primary);
+  border: none;
+}
+
+.cta-button:first-child:hover {
+  background: var(--hover-color);
+  transform: translateY(-2px);
+}
+
+.cta-button.secondary {
+  background: transparent;
+  border: 2px solid var(--accent-color);
+  color: var(--accent-color);
+}
+
+.cta-button.secondary:hover {
+  background: var(--accent-light);
+  transform: translateY(-2px);
+}
+
+.hero-highlights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-top: 4rem;
+  animation: fadeInUp 0.8s ease 0.8s both;
+}
+
+.highlight-card {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 20px var(--shadow-light);
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+}
+
+.highlight-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px var(--shadow-color);
+}
+
+.highlight-number {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--accent-color);
+  margin-bottom: 0.5rem;
+}
+
+.highlight-label {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes wave {
+  0% { transform: rotate(0deg); }
+  10% { transform: rotate(14deg); }
+  20% { transform: rotate(-8deg); }
+  30% { transform: rotate(14deg); }
+  40% { transform: rotate(-4deg); }
+  50% { transform: rotate(10deg); }
+  60% { transform: rotate(0deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 4rem 1rem;
+    min-height: auto;
+  }
+
+  .theme-toggle {
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .hero-main {
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero-text {
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+  }
+
+  .hero-description {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-highlights {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
