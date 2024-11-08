@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import BlogCard from './BlogCard';
 import BlogModal from './BlogModal';
 import SEO from '../shared/SEO';
@@ -16,11 +17,12 @@ const container = {
   }
 };
 
-const Blog = () => {
+const Blog = ({ initialSlug }) => {
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadPosts = async () => {
@@ -28,6 +30,14 @@ const Blog = () => {
         setLoading(true);
         const postsData = await loadAllContent('blog');
         setPosts(postsData);
+
+        // If initialSlug is provided, open that post
+        if (initialSlug) {
+          const post = postsData.find(p => p.slug === initialSlug);
+          if (post) {
+            setSelectedPost(post);
+          }
+        }
       } catch (err) {
         setError(err.message);
       } finally {
@@ -36,10 +46,16 @@ const Blog = () => {
     };
 
     loadPosts();
-  }, []);
+  }, [initialSlug]);
 
   const handlePostClick = (post) => {
     setSelectedPost(post);
+    navigate(`/blog/${post.slug}`, { replace: true });
+  };
+
+  const handleModalClose = () => {
+    setSelectedPost(null);
+    navigate('/', { replace: true });
   };
 
   // Get all unique tags from posts for SEO
@@ -95,7 +111,7 @@ const Blog = () => {
 
           <BlogModal
             isOpen={selectedPost !== null}
-            onClose={() => setSelectedPost(null)}
+            onClose={handleModalClose}
             post={selectedPost}
           />
         </div>

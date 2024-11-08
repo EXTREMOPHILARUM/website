@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import Hero from './components/Hero/Hero';
 import Skills from './components/Skills/Skills';
 import Projects from './components/Projects/Projects';
@@ -9,6 +10,8 @@ import Footer from './components/Footer/Footer';
 import { ThemeProvider } from './contexts/ThemeContext';
 
 function App() {
+  const { slug } = useParams();
+
   return (
     <ThemeProvider>
       <div className="min-h-screen bg-background font-sans antialiased">
@@ -17,7 +20,7 @@ function App() {
           <Skills />
           <Projects />
           <WorkExperience />
-          <Blog />
+          <Blog initialSlug={slug} />
           <Contact />
         </main>
         <Footer />
