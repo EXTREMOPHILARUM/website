@@ -9,7 +9,19 @@ const container = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2
+      staggerChildren: 0.3,
+      delayChildren: 0.2
+    }
+  }
+};
+
+const lineVariant = {
+  hidden: { scaleY: 0, originY: 0 },
+  show: { 
+    scaleY: 1,
+    transition: {
+      duration: 1,
+      ease: "easeOut"
     }
   }
 };
@@ -55,19 +67,29 @@ const WorkExperience = () => {
   return (
     <section id="work" className="py-16 px-4 md:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold tracking-tight mb-12 text-center">
+        <motion.h2 
+          className="text-3xl font-bold tracking-tight mb-12 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
           Work Experience
-        </h2>
+        </motion.h2>
         <motion.div 
           className="relative"
           variants={container}
           initial="hidden"
-          animate="show"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
         >
           {/* Timeline line */}
-          <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-border" />
+          <motion.div 
+            className="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-border"
+            variants={lineVariant}
+          />
           
-          <div className="space-y-12 md:space-y-24">
+          <div className="space-y-8">
             {workExperiences.map((item, index) => (
               <WorkTimelineItem
                 key={item.slug}

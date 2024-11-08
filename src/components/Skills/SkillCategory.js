@@ -14,15 +14,27 @@ const container = {
 
 const item = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 }
+  show: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut"
+    }
+  }
 };
 
 const SkillCategory = ({ category, index }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.2 }}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ 
+        duration: 0.6, 
+        delay: index * 0.2,
+        ease: "easeOut"
+      }}
     >
       <Card className="h-full">
         <CardHeader>
@@ -33,7 +45,8 @@ const SkillCategory = ({ category, index }) => {
             className="space-y-4"
             variants={container}
             initial="hidden"
-            animate="show"
+            whileInView="show"
+            viewport={{ once: true }}
           >
             {category.skills.map((skill, skillIndex) => (
               <motion.li

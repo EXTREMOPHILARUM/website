@@ -3,27 +3,84 @@ import { motion } from 'framer-motion';
 import { formatDate } from '../../utils/dateUtils';
 import { Card, CardContent } from '../ui/card';
 
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 }
+const getItemVariants = (isEven) => ({
+  hidden: { 
+    opacity: 0, 
+    x: isEven ? -50 : 50,
+    y: 20
+  },
+  show: { 
+    opacity: 1, 
+    x: 0,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+      when: "beforeChildren"
+    }
+  }
+});
+
+const dotVariants = {
+  hidden: { 
+    scale: 0,
+    opacity: 0 
+  },
+  show: { 
+    scale: 1,
+    opacity: 1,
+    transition: {
+      duration: 0.3,
+      ease: "easeOut",
+      delay: 0.2
+    }
+  }
+};
+
+const tagContainer = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+      delayChildren: 0.2
+    }
+  }
+};
+
+const tagItem = {
+  hidden: { opacity: 0, scale: 0.8 },
+  show: { 
+    opacity: 1, 
+    scale: 1,
+    transition: {
+      duration: 0.3,
+      ease: "easeOut"
+    }
+  }
 };
 
 const WorkTimelineItem = ({ item: workItem, onItemClick }) => {
+  const isEven = workItem.index % 2 === 0;
+
   return (
     <motion.div
-      variants={item}
-      className="relative mb-8 md:mb-0 md:grid md:grid-cols-2 md:gap-8 md:items-center"
+      variants={getItemVariants(isEven)}
+      className="relative mb-8 md:mb-0 md:grid md:grid-cols-[1fr,auto,1fr] md:gap-8 md:items-center"
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.2 }}
     >
       {/* Timeline dot */}
-      <div className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <motion.div 
+        className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        variants={dotVariants}
+      >
         <div className="w-4 h-4 rounded-full bg-primary border-4 border-background"></div>
-      </div>
+      </motion.div>
 
       {/* Content card */}
       <Card 
-        className={`cursor-pointer hover:shadow-lg transition-shadow md:col-start-${workItem.index % 2 === 0 ? '1' : '2'}`}
+        className={`cursor-pointer hover:shadow-lg transition-shadow ${isEven ? 'md:col-start-1' : 'md:col-start-3'}`}
         onClick={() => onItemClick && onItemClick(workItem)}
       >
         <CardContent className="p-6">
@@ -39,25 +96,12 @@ const WorkTimelineItem = ({ item: workItem, onItemClick }) => {
           {workItem.tags && (
             <motion.div 
               className="flex flex-wrap gap-2 mt-4"
-              initial="hidden"
-              animate="show"
-              variants={{
-                hidden: { opacity: 0 },
-                show: {
-                  opacity: 1,
-                  transition: {
-                    staggerChildren: 0.1
-                  }
-                }
-              }}
+              variants={tagContainer}
             >
               {workItem.tags.map((tag, tagIndex) => (
                 <motion.span
                   key={`${workItem.slug}-tag-${tagIndex}`}
-                  variants={{
-                    hidden: { opacity: 0, scale: 0.8 },
-                    show: { opacity: 1, scale: 1 }
-                  }}
+                  variants={tagItem}
                   className="inline-flex items-center rounded-md bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground ring-1 ring-inset ring-secondary"
                 >
                   {tag}

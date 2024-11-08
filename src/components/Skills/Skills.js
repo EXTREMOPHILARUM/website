@@ -56,13 +56,14 @@ const Skills = () => {
   ];
 
   return (
-    <section className="py-16 px-4 md:px-6 lg:px-8">
+    <section id="skills" className="py-16 px-4 md:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <motion.h2 
           className="text-3xl font-bold tracking-tight mb-12 text-center"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
         >
           Skills & Expertise
         </motion.h2>
@@ -70,7 +71,8 @@ const Skills = () => {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           variants={container}
           initial="hidden"
-          animate="show"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
         >
           {skillCategories.map((category, index) => (
             <SkillCategory

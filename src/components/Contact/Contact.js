@@ -9,14 +9,40 @@ const container = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1
+      staggerChildren: 0.15,
+      delayChildren: 0.1
     }
   }
 };
 
 const item = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 }
+  show: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut"
+    }
+  }
+};
+
+const cardVariants = {
+  hidden: { 
+    opacity: 0, 
+    y: 30,
+    scale: 0.95
+  },
+  show: { 
+    opacity: 1, 
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+      when: "beforeChildren"
+    }
+  }
 };
 
 const Contact = () => {
@@ -48,61 +74,73 @@ const Contact = () => {
       <div className="max-w-3xl mx-auto">
         <motion.h2 
           className="text-3xl font-bold tracking-tight mb-12 text-center"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
         >
           Get in Touch
         </motion.h2>
         
-        <Card>
-          <CardContent className="p-6">
-            <motion.div
-              variants={container}
-              initial="hidden"
-              animate="show"
-              className="space-y-8"
-            >
-              <motion.p 
-                variants={item}
-                className="text-lg text-muted-foreground text-center"
-              >
-                I'm always interested in hearing about new projects and opportunities.
-                Whether you have a question or just want to say hi, feel free to reach out!
-              </motion.p>
-
-              <motion.div 
+        <motion.div
+          variants={cardVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <Card>
+            <CardContent className="p-6">
+              <motion.div
                 variants={container}
-                className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+                className="space-y-8"
               >
-                {contactLinks.map((link, index) => (
-                  <motion.div
-                    key={link.label}
-                    variants={item}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <Button
-                      variant="outline"
-                      className="w-full"
-                      asChild
+                <motion.p 
+                  variants={item}
+                  className="text-lg text-muted-foreground text-center"
+                >
+                  I'm always interested in hearing about new projects and opportunities.
+                  Whether you have a question or just want to say hi, feel free to reach out!
+                </motion.p>
+
+                <motion.div 
+                  variants={container}
+                  className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+                >
+                  {contactLinks.map((link, index) => (
+                    <motion.div
+                      key={link.label}
+                      variants={item}
+                      whileHover={{ 
+                        scale: 1.05,
+                        transition: { duration: 0.2 }
+                      }}
+                      whileTap={{ 
+                        scale: 0.95,
+                        transition: { duration: 0.1 }
+                      }}
                     >
-                      <a 
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center"
+                      <Button
+                        variant="outline"
+                        className="w-full"
+                        asChild
                       >
-                        {link.icon}
-                        {link.label}
-                      </a>
-                    </Button>
-                  </motion.div>
-                ))}
+                        <a 
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center"
+                        >
+                          {link.icon}
+                          {link.label}
+                        </a>
+                      </Button>
+                    </motion.div>
+                  ))}
+                </motion.div>
               </motion.div>
-            </motion.div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </motion.div>
       </div>
     </section>
   );

@@ -9,7 +9,8 @@ const container = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2
+      staggerChildren: 0.2,
+      delayChildren: 0.1
     }
   }
 };
@@ -57,9 +58,10 @@ const Blog = () => {
       <div className="max-w-7xl mx-auto">
         <motion.h2 
           className="text-3xl font-bold tracking-tight mb-12 text-center"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
         >
           Blog Posts
         </motion.h2>
@@ -67,7 +69,8 @@ const Blog = () => {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           variants={container}
           initial="hidden"
-          animate="show"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
         >
           {posts.map((item, index) => (
             <BlogCard
