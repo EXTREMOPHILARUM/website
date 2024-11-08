@@ -51,7 +51,7 @@ const Hero = () => {
             <h1 className="text-4xl md:text-6xl font-bold mb-4">
               Hi, I'm Saurabh{' '}
               <motion.span
-                className="inline-block"
+                className="inline-block waving-hand"
                 animate={{ rotate: [0, 14, -8, 14, -4, 10, 0] }}
                 transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 1 }}
               >

@@ -72,7 +72,7 @@ const WorkTimelineItem = ({ item: workItem, onItemClick }) => {
     >
       {/* Timeline dot */}
       <motion.div 
-        className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        className={`hidden md:block absolute top-1/2 transform -translate-y-1/2 ${isEven ? 'right-[calc(50%-0.5rem)]' : 'left-[calc(50%-0.5rem)]'}`}
         variants={dotVariants}
       >
         <div className="w-4 h-4 rounded-full bg-primary border-4 border-background"></div>
