@@ -1,5 +1,5 @@
 import React from 'react';
-import './Skills.css';
+import { motion } from 'framer-motion';
 import { 
   SiAmazon, SiGooglecloud, SiMicrosoftazure, SiKubernetes, 
   SiTerraform, SiJenkins, SiPython, SiJavascript, 
@@ -7,6 +7,16 @@ import {
 } from 'react-icons/si';
 import { BiShield, BiLock, BiBug, BiCodeAlt, BiServer, BiGitBranch } from 'react-icons/bi';
 import SkillCategory from './SkillCategory';
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2
+    }
+  }
+};
 
 const Skills = () => {
   const skillCategories = [
@@ -46,16 +56,30 @@ const Skills = () => {
   ];
 
   return (
-    <section className="skills-section">
-      <h2 className="section-title">Skills & Expertise</h2>
-      <div className="skills-grid">
-        {skillCategories.map((category, index) => (
-          <SkillCategory
-            key={category.title}
-            category={category}
-            index={index}
-          />
-        ))}
+    <section className="py-16 px-4 md:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <motion.h2 
+          className="text-3xl font-bold tracking-tight mb-12 text-center"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          Skills & Expertise
+        </motion.h2>
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          variants={container}
+          initial="hidden"
+          animate="show"
+        >
+          {skillCategories.map((category, index) => (
+            <SkillCategory
+              key={category.title}
+              category={category}
+              index={index}
+            />
+          ))}
+        </motion.div>
       </div>
     </section>
   );

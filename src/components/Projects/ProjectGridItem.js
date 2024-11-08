@@ -1,14 +1,23 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import ProjectCard from './ProjectCard';
 
-const ProjectGridItem = ({ item, index, onItemClick }) => {
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 }
+};
+
+const ProjectGridItem = ({ item: projectItem, onItemClick }) => {
   return (
-    <div className="grid-item">
+    <motion.div
+      variants={item}
+      className="grid-item"
+    >
       <ProjectCard 
-        item={item}
+        item={projectItem}
         onItemClick={onItemClick}
       />
-    </div>
+    </motion.div>
   );
 };
 

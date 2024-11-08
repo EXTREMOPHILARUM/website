@@ -1,8 +1,14 @@
 import React from 'react';
-import './WorkModal.css';
+import { motion } from 'framer-motion';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '../ui/dialog';
 
 const WorkModal = ({ isOpen, onClose, work }) => {
-  if (!isOpen || !work) return null;
+  if (!work) return null;
 
   const formatDate = (date) => {
     if (date === 'Present') return date;
@@ -31,84 +37,111 @@ const WorkModal = ({ isOpen, onClose, work }) => {
     return duration;
   };
 
-  // Parse the content into bullet points
   const bulletPoints = work.content
     .split('\n')
     .filter(point => point.trim())
     .map(point => point.trim().replace(/^[•-]\s*/, ''));
 
-  // Get frontmatter data
   const { position, company, location, type, startDate, endDate, tags, overview, technologies } = work;
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content work-modal" onClick={e => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose}>×</button>
-        
-        <div className="work-modal-header">
-          <div className="work-modal-company">
-            <div className="company-info">
-              <h2 className="work-modal-title">{position}</h2>
-              <h3 className="work-modal-company-name">{company}</h3>
-              <div className="work-modal-meta">
-                <div className="work-modal-location">
-                  <span className="meta-label">Location:</span> {location}
-                  {type && <span className="work-type">· {type}</span>}
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle className="text-2xl font-bold">{position}</DialogTitle>
+          <motion.div 
+            className="space-y-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <div className="space-y-2">
+              <h3 className="text-xl font-semibold text-primary">{company}</h3>
+              <div className="text-sm text-muted-foreground">
+                <div className="flex items-center gap-2">
+                  <span>{location}</span>
+                  {type && <span>· {type}</span>}
                 </div>
-                <div className="work-modal-dates">
-                  <span className="meta-label">Duration:</span>
-                  <span className="date-range">
+                <div className="flex items-center gap-2">
+                  <span>
                     {formatDate(startDate)} - {formatDate(endDate || 'Present')}
                   </span>
-                  <span className="duration">
+                  <span>
                     ({getDuration(startDate, endDate || 'Present')})
                   </span>
                 </div>
               </div>
             </div>
-          </div>
-          
-          {tags && tags.length > 0 && (
-            <div className="work-modal-tags">
-              {tags.map((tag, index) => (
-                <span key={index} className="tag">{tag}</span>
-              ))}
-            </div>
-          )}
-        </div>
 
-        <div className="work-modal-sections">
-          {overview && (
-            <div className="work-section">
-              <h3 className="section-title">Overview</h3>
-              <p className="section-content">{overview}</p>
-            </div>
-          )}
-
-          <div className="work-section">
-            <h3 className="section-title">Key Responsibilities & Achievements</h3>
-            <div className="section-content">
-              <ul className="achievements-list">
-                {bulletPoints.map((point, index) => (
-                  <li key={index} className="achievement-item">{point}</li>
+            {tags && tags.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {tags.map((tag, index) => (
+                  <motion.span
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="inline-flex items-center rounded-md bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground ring-1 ring-inset ring-secondary"
+                  >
+                    {tag}
+                  </motion.span>
                 ))}
-              </ul>
+              </div>
+            )}
+          </motion.div>
+        </DialogHeader>
+
+        <motion.div
+          className="space-y-6 mt-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          {overview && (
+            <div className="space-y-2">
+              <h3 className="text-lg font-semibold">Overview</h3>
+              <p className="text-sm text-muted-foreground">{overview}</p>
             </div>
+          )}
+
+          <div className="space-y-2">
+            <h3 className="text-lg font-semibold">Key Responsibilities & Achievements</h3>
+            <ul className="space-y-2">
+              {bulletPoints.map((point, index) => (
+                <motion.li
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 + index * 0.1 }}
+                  className="text-sm text-muted-foreground flex items-start"
+                >
+                  <span className="mr-2">•</span>
+                  <span>{point}</span>
+                </motion.li>
+              ))}
+            </ul>
           </div>
 
           {technologies && technologies.length > 0 && (
-            <div className="work-section">
-              <h3 className="section-title">Technologies Used</h3>
-              <div className="technologies-list">
+            <div className="space-y-2">
+              <h3 className="text-lg font-semibold">Technologies Used</h3>
+              <div className="flex flex-wrap gap-2">
                 {technologies.map((tech, index) => (
-                  <span key={index} className="technology-tag">{tech}</span>
+                  <motion.span
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.5 + index * 0.1 }}
+                    className="inline-flex items-center rounded-md bg-primary/10 px-2 py-1 text-xs font-medium text-primary ring-1 ring-inset ring-primary/20"
+                  >
+                    {tech}
+                  </motion.span>
                 ))}
               </div>
             </div>
           )}
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </DialogContent>
+    </Dialog>
   );
 };
 

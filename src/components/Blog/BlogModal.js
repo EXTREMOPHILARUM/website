@@ -1,28 +1,53 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import MarkdownContent from '../MarkdownContent';
-import './BlogModal.css';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '../ui/dialog';
 
 const BlogModal = ({ isOpen, onClose, post }) => {
-  if (!isOpen || !post) return null;
+  if (!post) return null;
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content blog-modal" onClick={e => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose}>×</button>
-        <div className="blog-modal-header">
-          <h2 className="blog-modal-title">{post.title}</h2>
-          <div className="blog-modal-date">{post.date}</div>
-          <div className="blog-modal-tags">
-            {post.tags && post.tags.map((tag, index) => (
-              <span key={index} className="tag">{tag}</span>
-            ))}
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle className="text-2xl font-bold">{post.title}</DialogTitle>
+          <div className="flex flex-col space-y-2">
+            {post.date && (
+              <p className="text-sm text-muted-foreground">{post.date}</p>
+            )}
+            {post.tags && (
+              <div className="flex flex-wrap gap-2">
+                {post.tags.map((tag, index) => (
+                  <motion.span
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="inline-flex items-center rounded-md bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground ring-1 ring-inset ring-secondary"
+                  >
+                    {tag}
+                  </motion.span>
+                ))}
+              </div>
+            )}
           </div>
-        </div>
-        <div className="blog-modal-body">
+        </DialogHeader>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="prose prose-sm dark:prose-invert max-w-none mt-4"
+        >
           <MarkdownContent content={post.content} />
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </DialogContent>
+    </Dialog>
   );
 };
 

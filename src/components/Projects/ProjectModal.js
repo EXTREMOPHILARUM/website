@@ -1,42 +1,77 @@
 import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import MarkdownContent from '../MarkdownContent';
-import './ProjectModal.css';
+import { Button } from '../ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '../ui/dialog';
 
 const ProjectModal = ({ isOpen, onClose, project }) => {
-  if (!isOpen || !project) return null;
+  if (!project) return null;
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content project-modal" onClick={e => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose}>×</button>
-        <div className="project-modal-header">
-          <h2 className="project-modal-title">{project.title}</h2>
-          <div className="project-modal-date">{project.date}</div>
-          <div className="project-modal-tags">
-            {project.tags && project.tags.map((tag, index) => (
-              <span key={index} className="tag">{tag}</span>
-            ))}
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle className="text-2xl font-bold">{project.title}</DialogTitle>
+          <div className="flex flex-col space-y-2">
+            {project.date && (
+              <p className="text-sm text-muted-foreground">{project.date}</p>
+            )}
+            {project.tags && (
+              <div className="flex flex-wrap gap-2">
+                {project.tags.map((tag, index) => (
+                  <motion.span
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="inline-flex items-center rounded-md bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground ring-1 ring-inset ring-secondary"
+                  >
+                    {tag}
+                  </motion.span>
+                ))}
+              </div>
+            )}
           </div>
-        </div>
-        <div className="project-modal-body">
+        </DialogHeader>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="prose prose-sm dark:prose-invert max-w-none mt-4"
+        >
           <MarkdownContent content={project.content} />
-        </div>
+        </motion.div>
+
         {project.links && (
-          <div className="project-modal-links">
+          <DialogFooter className="mt-6 flex-wrap gap-4">
             {project.links.github && (
-              <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="project-link">
+              <Button
+                variant="outline"
+                onClick={() => window.open(project.links.github, '_blank')}
+                className="flex-1 sm:flex-none"
+              >
                 View on GitHub
-              </a>
+              </Button>
             )}
             {project.links.demo && (
-              <a href={project.links.demo} target="_blank" rel="noopener noreferrer" className="project-link">
+              <Button
+                onClick={() => window.open(project.links.demo, '_blank')}
+                className="flex-1 sm:flex-none"
+              >
                 Live Demo
-              </a>
+              </Button>
             )}
-          </div>
+          </DialogFooter>
         )}
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 };
 

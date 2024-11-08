@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import Hero from './components/Hero/Hero';
 import Skills from './components/Skills/Skills';
 import Projects from './components/Projects/Projects';
@@ -12,8 +11,8 @@ import { ThemeProvider } from './contexts/ThemeContext';
 function App() {
   return (
     <ThemeProvider>
-      <div className="App">
-        <main>
+      <div className="min-h-screen bg-background font-sans antialiased">
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Hero />
           <Skills />
           <Projects />
