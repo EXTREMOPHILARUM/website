@@ -73,14 +73,6 @@ export const DEFAULT_VALUES = {
   }
 };
 
-// Animation settings
-export const ANIMATION_CONFIG = {
-  INTERSECTION_THRESHOLD: 0.1,
-  INTERSECTION_ROOT_MARGIN: '50px',
-  TITLE_THRESHOLD: 0,
-  TITLE_ROOT_MARGIN: '0px 0px 0px 0px' // Trigger as soon as any part of the title enters viewport
-};
-
 // Error messages
 export const ERROR_MESSAGES = {
   INVALID_CONTENT_TYPE: 'Invalid content type:',

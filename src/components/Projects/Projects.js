@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ProjectGridItem from './ProjectGridItem';
 import ProjectModal from './ProjectModal';
-import useIntersectionObserver from '../../hooks/useIntersectionObserver';
 import { loadAllContent } from '../../utils/contentLoader';
-import '../shared/animations.css';
 import './Projects.css';
 
 const Projects = () => {
@@ -11,8 +9,6 @@ const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
-  const [titleRef, isTitleVisible] = useIntersectionObserver();
 
   useEffect(() => {
     const loadProjects = async () => {
@@ -39,9 +35,7 @@ const Projects = () => {
 
   return (
     <section id="projects" className="projects-section">
-      <h2 ref={titleRef} className={`section-title initially-hidden ${isTitleVisible ? 'visible' : ''}`}>
-        Featured Projects
-      </h2>
+      <h2 className="section-title">Featured Projects</h2>
       <div className="content-grid projects-grid">
         {projects.map((item, index) => (
           <ProjectGridItem

@@ -1,25 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import WorkTimelineItem from './WorkTimelineItem';
+import WorkTimelineItemWrapper from './WorkTimelineItemWrapper';
 import WorkModal from './WorkModal';
-import useIntersectionObserver from '../../hooks/useIntersectionObserver';
 import { loadAllContent } from '../../utils/contentLoader';
-import '../shared/animations.css';
 import './WorkExperience.css';
 
 const WorkExperience = () => {
-  const [workExperience, setWorkExperience] = useState([]);
+  const [workExperiences, setWorkExperiences] = useState([]);
   const [selectedWork, setSelectedWork] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const [titleRef, isTitleVisible] = useIntersectionObserver();
 
   useEffect(() => {
     const loadWork = async () => {
       try {
         setLoading(true);
         const workData = await loadAllContent('work');
-        setWorkExperience(workData);
+        setWorkExperiences(workData);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -38,13 +34,11 @@ const WorkExperience = () => {
   if (error) return <div>Error loading work experience: {error}</div>;
 
   return (
-    <section className="work-section">
-      <h2 ref={titleRef} className={`section-title initially-hidden ${isTitleVisible ? 'visible' : ''}`}>
-        Work Experience
-      </h2>
+    <section id="work" className="work-section">
+      <h2 className="section-title">Work Experience</h2>
       <div className="timeline">
-        {workExperience.map((item, index) => (
-          <WorkTimelineItem
+        {workExperiences.map((item, index) => (
+          <WorkTimelineItemWrapper
             key={item.slug}
             item={item}
             index={index}

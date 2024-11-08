@@ -13,7 +13,6 @@
 .App-footer a {
   color: var(--text-primary);
   text-decoration: underline;
-  transition: opacity 0.2s ease;
 }
 
 .App-footer a:hover {

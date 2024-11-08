@@ -17,7 +17,6 @@
   font-size: 1.5rem;
   padding: 0.5rem;
   border-radius: 50%;
-  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,7 +27,6 @@
 
 .theme-toggle:hover {
   background: var(--bg-primary);
-  transform: rotate(15deg);
 }
 
 .hero-content {
@@ -61,8 +59,6 @@
 
 .wave {
   display: inline-block;
-  animation: wave 2.5s infinite;
-  transform-origin: 70% 70%;
 }
 
 .hero-subtitle {
@@ -91,7 +87,6 @@
   font-size: 1.1rem;
   font-weight: 500;
   text-decoration: none;
-  transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -105,7 +100,6 @@
 
 .cta-button:first-child:hover {
   background: var(--hover-color);
-  transform: translateY(-2px);
 }
 
 .cta-button.secondary {
@@ -116,7 +110,6 @@
 
 .cta-button.secondary:hover {
   background: var(--accent-light);
-  transform: translateY(-2px);
 }
 
 .hero-highlights {
@@ -132,12 +125,10 @@
   border-radius: 12px;
   text-align: center;
   box-shadow: 0 4px 20px var(--shadow-light);
-  transition: all 0.3s ease;
   border: 1px solid var(--border-color);
 }
 
 .highlight-card:hover {
-  transform: translateY(-5px);
   box-shadow: 0 8px 30px var(--shadow-color);
 }
 
@@ -152,17 +143,6 @@
 .highlight-label {
   color: var(--text-secondary);
   font-size: 1.1rem;
-}
-
-@keyframes wave {
-  0% { transform: rotate(0deg); }
-  10% { transform: rotate(14deg); }
-  20% { transform: rotate(-8deg); }
-  30% { transform: rotate(14deg); }
-  40% { transform: rotate(-4deg); }
-  50% { transform: rotate(10deg); }
-  60% { transform: rotate(0deg); }
-  100% { transform: rotate(0deg); }
 }
 
 @media (max-width: 768px) {

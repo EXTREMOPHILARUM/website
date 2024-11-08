@@ -1,13 +1,11 @@
 import React from 'react';
 import './Skills.css';
-import '../shared/animations.css';
 import { 
   SiAmazon, SiGooglecloud, SiMicrosoftazure, SiKubernetes, 
   SiTerraform, SiJenkins, SiPython, SiJavascript, 
   SiReact, SiNodedotjs, SiGo, SiPostman
 } from 'react-icons/si';
 import { BiShield, BiLock, BiBug, BiCodeAlt, BiServer, BiGitBranch } from 'react-icons/bi';
-import useIntersectionObserver from '../../hooks/useIntersectionObserver';
 import SkillCategory from './SkillCategory';
 
 const Skills = () => {
@@ -47,13 +45,9 @@ const Skills = () => {
     }
   ];
 
-  const [titleRef, isTitleVisible] = useIntersectionObserver({ threshold: 0.1 });
-
   return (
     <section className="skills-section">
-      <h2 ref={titleRef} className={`section-title initially-hidden ${isTitleVisible ? 'visible' : ''}`}>
-        Skills & Expertise
-      </h2>
+      <h2 className="section-title">Skills & Expertise</h2>
       <div className="skills-grid">
         {skillCategories.map((category, index) => (
           <SkillCategory

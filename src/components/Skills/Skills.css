@@ -18,12 +18,10 @@
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 20px var(--shadow-light);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   border: 1px solid var(--border-color);
 }
 
 .skill-category:hover {
-  transform: translateY(-5px);
   box-shadow: 0 8px 30px var(--shadow-color);
 }
 
@@ -48,12 +46,10 @@
   align-items: center;
   gap: 1rem;
   line-height: 1.4;
-  transition: all 0.2s ease;
 }
 
 .skill-category li:hover {
   color: var(--text-primary);
-  transform: translateX(5px);
 }
 
 .skill-icon {
@@ -63,11 +59,6 @@
   min-width: 24px;
   font-size: 1.25rem;
   color: var(--accent-color);
-  transition: all 0.2s ease;
-}
-
-.skill-category li:hover .skill-icon {
-  transform: scale(1.2);
 }
 
 .skill-name {

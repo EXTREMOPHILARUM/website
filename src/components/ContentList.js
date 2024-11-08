@@ -1,44 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import WorkTimelineItem from './WorkExperience/WorkTimelineItem';
 import ProjectCard from './Projects/ProjectCard';
 import BlogCard from './Blog/BlogCard';
-import './shared/animations.css';
 
 const ContentList = ({ type, items, onItemClick }) => {
-  const listRef = useRef(null);
-  const titleRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0,
-      rootMargin: '0px'
-    });
-
-    // Observe title
-    if (titleRef.current) {
-      titleRef.current.classList.add('initially-hidden');
-      observer.observe(titleRef.current);
-    }
-
-    // Observe grid items or timeline items
-    const elements = listRef.current?.querySelectorAll('.grid-item, .timeline-item');
-    elements?.forEach((element, index) => {
-      element.classList.add('initially-hidden');
-      // Add a small delay to each item for a staggered effect
-      element.style.animationDelay = `${index * 0.1}s`;
-      observer.observe(element);
-    });
-
-    return () => observer.disconnect();
-  }, [items]);
-
   const sectionTitles = {
     'Blog': 'Latest Articles',
     'Projects': 'Featured Projects',
@@ -98,8 +63,8 @@ const ContentList = ({ type, items, onItemClick }) => {
 
   return (
     <div className="content-list">
-      <h2 ref={titleRef} className="section-title">{sectionTitles[type] || type}</h2>
-      <div ref={listRef}>
+      <h2 className="section-title">{sectionTitles[type] || type}</h2>
+      <div>
         {renderContent()}
       </div>
     </div>

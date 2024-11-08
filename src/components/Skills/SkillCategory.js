@@ -1,16 +1,8 @@
 import React from 'react';
-import useIntersectionObserver from '../../hooks/useIntersectionObserver';
-import '../shared/animations.css';
 
 const SkillCategory = ({ category, index }) => {
-  const [itemRef, isItemVisible] = useIntersectionObserver({ threshold: 0.1 });
-
   return (
-    <div 
-      ref={itemRef}
-      className={`skill-category initially-hidden ${isItemVisible ? 'visible' : ''}`}
-      style={{ animationDelay: `${index * 0.1}s` }}
-    >
+    <div className="skill-category">
       <h3>{category.title}</h3>
       <ul>
         {category.skills.map((skill, skillIndex) => (

@@ -41,7 +41,6 @@ section {
 a {
   color: var(--accent-color);
   text-decoration: none;
-  transition: color 0.3s ease;
 }
 
 a:hover {
@@ -55,7 +54,6 @@ button {
   padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 button:hover {
@@ -70,11 +68,9 @@ button:hover {
   padding: 1.5rem;
   margin: 1rem 0;
   box-shadow: 0 2px 4px var(--shadow-color);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
-  transform: translateY(-2px);
   box-shadow: 0 4px 8px var(--shadow-color);
 }
 

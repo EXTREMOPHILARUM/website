@@ -1,13 +1,10 @@
 import React from 'react';
 import './Hero.css';
-import '../shared/animations.css';
 import { useTheme } from '../../contexts/ThemeContext';
-import useIntersectionObserver from '../../hooks/useIntersectionObserver';
 import HighlightCard from './HighlightCard';
 
 const Hero = () => {
   const { theme, toggleTheme } = useTheme();
-  const [heroRef, isHeroVisible] = useIntersectionObserver();
 
   const highlights = [
     { number: '5+', label: 'Years Experience' },
@@ -25,7 +22,7 @@ const Hero = () => {
         {theme === 'light' ? '🌙' : '☀️'}
       </button>
       <div className="hero-content">
-        <div className={`hero-main initially-hidden ${isHeroVisible ? 'visible' : ''}`} ref={heroRef}>
+        <div className="hero-main">
           <div className="hero-text">
             <h1 className="hero-title">Hi, I'm Saurabh <span className="wave">👋</span></h1>
             <h2 className="hero-subtitle">Software Engineer & Cloud Architect</h2>

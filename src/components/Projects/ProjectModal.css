@@ -39,7 +39,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s;
 }
 
 .modal-close:hover {
@@ -148,7 +147,6 @@
   text-decoration: none;
   border-radius: 4px;
   font-weight: 500;
-  transition: background-color 0.2s;
 }
 
 .project-link:hover {

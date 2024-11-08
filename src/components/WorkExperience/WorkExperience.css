@@ -31,10 +31,6 @@
   padding-left: 24px;
 }
 
-.timeline-item:hover .timeline-content {
-  transform: translateX(5px);
-}
-
 .timeline-dot {
   position: relative;
   flex-shrink: 0;
@@ -54,7 +50,6 @@
   border-radius: 8px;
   box-shadow: 0 2px 4px var(--shadow-light);
   padding: 1.25rem;
-  transition: transform 0.2s;
 }
 
 .timeline-header {
