@@ -1,12 +1,12 @@
 # Personal Portfolio Website
 
-A modern, responsive portfolio website built with React, featuring a dark/light theme, animated components, and markdown-based content management.
+A modern, responsive portfolio website built with React and Tailwind CSS, featuring a dark/light theme, animated components, and markdown-based content management.
 
 ## Features
 
 - 🎨 Dark/Light Theme Support
 - 📱 Fully Responsive Design
-- ✨ Smooth Animations and Transitions
+- ✨ Smooth Animations with Framer Motion
 - 📝 Blog Section with Markdown Support
 - 💼 Work Experience Timeline
 - 🚀 Projects Showcase
@@ -17,33 +17,48 @@ A modern, responsive portfolio website built with React, featuring a dark/light 
 ## Tech Stack
 
 - React.js
-- CSS3 with Modern Features
+- Tailwind CSS
+- Framer Motion
+- React Router
+- Radix UI Components
+- Gray Matter & Remark for Markdown
 - Context API for State Management
-- Custom Hooks for Animations and Intersection Observer
-- Markdown Processing for Content
+
+## Documentation
+
+- [Development Guide](docs/DEVELOPMENT.md) - Setup and development workflow
+- [Contributing Guidelines](docs/CONTRIBUTING.md) - How to contribute to the project
+- [Content Management](docs/CONTENT.md) - How to manage blog posts, projects, and work experience
 
 ## Project Structure
 
 ```
 src/
 ├── components/         # React components
-│   ├── Blog/          # Blog related components
+│   ├── Blog/          # Blog components
 │   ├── Contact/       # Contact form
+│   ├── Footer/        # Footer component
 │   ├── Hero/          # Hero section
+│   ├── Loading/       # Loading states
 │   ├── Modal/         # Reusable modal
 │   ├── Projects/      # Projects section
 │   ├── Skills/        # Skills showcase
-│   └── WorkExperience/# Work history
+│   ├── WorkExperience/# Work history
+│   ├── shared/        # Shared components
+│   └── ui/            # UI components
+├── config/            # Configuration files
 ├── contexts/          # React contexts
 ├── hooks/             # Custom hooks
-├── utils/             # Utility functions
-└── public/content/    # Markdown content
-    ├── blog/          # Blog posts
-    ├── projects/      # Project details
-    └── work/          # Work experience
+├── lib/              # Utility libraries
+├── utils/            # Utility functions
+└── public/
+    └── content/      # Markdown content
+        ├── blog/     # Blog posts
+        ├── projects/ # Project details
+        └── work/     # Work experience
 ```
 
-## Getting Started
+## Quick Start
 
 1. Clone the repository:
    ```bash
@@ -62,16 +77,6 @@ src/
 
 4. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-## Content Management
-
-Content is managed through markdown files located in the `public/content` directory:
-
-- `blog/`: Blog post markdown files
-- `projects/`: Project details and descriptions
-- `work/`: Work experience entries
-
-Each content type follows a specific markdown structure for consistent rendering.
-
 ## Building for Production
 
 ```bash
@@ -79,10 +84,6 @@ npm run build
 ```
 
 This creates an optimized production build in the `build` folder, ready for deployment.
-
-## Contributing
-
-Feel free to submit issues and enhancement requests.
 
 ## License
 
