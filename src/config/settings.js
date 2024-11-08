@@ -59,8 +59,13 @@ export const DEFAULT_VALUES = {
     title: '',
     date: '',
     description: '',
+    author: 'Saurabh Nandedkar',
     tags: [],
-    readTime: '5 min'
+    readTime: '5 min',
+    image: '',
+    keywords: [],
+    canonicalUrl: '',
+    lastModified: ''
   },
   PROJECT: {
     title: '',
