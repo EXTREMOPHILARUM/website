@@ -90,6 +90,15 @@ const BlogModal = ({ isOpen, onClose, post }) => {
     }, 0);
   }, [post, copyToClipboard]);
 
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
   if (!post) return null;
 
   return (
@@ -136,7 +145,7 @@ const BlogModal = ({ isOpen, onClose, post }) => {
                 <p className="text-sm text-muted-foreground">By {post.author}</p>
               )}
               {post.date && (
-                <p className="text-sm text-muted-foreground">{post.date}</p>
+                <p className="text-sm text-muted-foreground">{formatDate(post.date)}</p>
               )}
               {post.tags && (
                 <div className="flex flex-wrap gap-2">

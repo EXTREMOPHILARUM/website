@@ -11,7 +11,7 @@ const WorkModal = ({ isOpen, onClose, work }) => {
   if (!work) return null;
 
   const formatDate = (date) => {
-    if (date === 'Present') return date;
+    if (!date || date === 'Present') return 'Present';
     const [year, month] = date.split('-');
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 
                    'July', 'August', 'September', 'October', 'November', 'December'];
@@ -63,7 +63,7 @@ const WorkModal = ({ isOpen, onClose, work }) => {
                 </div>
                 <div className="flex items-center gap-2">
                   <span>
-                    {formatDate(startDate)} - {formatDate(endDate || 'Present')}
+                    {formatDate(startDate)} - {formatDate(endDate)}
                   </span>
                   <span>
                     ({getDuration(startDate, endDate || 'Present')})

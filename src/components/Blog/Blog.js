@@ -29,11 +29,17 @@ const Blog = ({ initialSlug }) => {
       try {
         setLoading(true);
         const postsData = await loadAllContent('blog');
-        setPosts(postsData);
+        // Sort posts by date in descending order (newest first)
+        const sortedPosts = postsData.sort((a, b) => {
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
+          return dateB - dateA;
+        });
+        setPosts(sortedPosts);
 
         // If initialSlug is provided, open that post
         if (initialSlug) {
-          const post = postsData.find(p => p.slug === initialSlug);
+          const post = sortedPosts.find(p => p.slug === initialSlug);
           if (post) {
             setSelectedPost(post);
           }

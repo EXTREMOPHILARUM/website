@@ -24,21 +24,65 @@ export const CONTENT_STRUCTURE = {
   [CONTENT_TYPES.BLOG]: [
     'automated-security-pipeline',
     'high-availability-email-infrastructure',
-    'multi-cloud-trading-architecture'
+    'multi-cloud-trading-architecture',
+    'trading-news-chatbot'
   ],
   [CONTENT_TYPES.PROJECTS]: [
     'confidential-trading-platform',
     'flipkart-health-plus',
-    'password-manager'
+    'password-manager',
+    'ai-trading-rag-chatbot',
+    'tax-helper-rag-system',
+    'semiconductor-manufacturing-llm',
+    'educational-local-llm-system'
   ],
   [CONTENT_TYPES.WORK]: [
     'Turing',
     'Safe',
     'Prismberry',
-    'Navy',
-    'Afrost'
+    'Freelance'
   ]
 };
+
+// Pricing data
+export const PRICING_DATA = [
+  {
+    title: "Basic Consultation",
+    price: "$100/hr",
+    features: [
+      "Technical architecture review",
+      "Code review",
+      "Best practices guidance",
+      "1-on-1 consultation"
+    ],
+    emailSubject: "Basic Consultation Inquiry",
+    emailBody: "Hi Saurabh, I'm interested in the Basic Consultation service. Please let me know your availability for a discussion."
+  },
+  {
+    title: "Project Development",
+    price: "Custom",
+    features: [
+      "Full-stack development",
+      "Cloud infrastructure setup",
+      "CI/CD implementation",
+      "Technical documentation"
+    ],
+    emailSubject: "Project Development Inquiry",
+    emailBody: "Hi Saurabh, I'm interested in the Project Development service. I'd like to discuss my project requirements with you."
+  },
+  {
+    title: "Enterprise Solutions",
+    price: "Contact",
+    features: [
+      "Scalable architecture design",
+      "High-availability systems",
+      "Security implementation",
+      "24/7 support available"
+    ],
+    emailSubject: "Enterprise Solutions Inquiry",
+    emailBody: "Hi Saurabh, I'm interested in the Enterprise Solutions service. I'd like to discuss how we can implement this for our organization."
+  }
+];
 
 // Content paths
 export const CONTENT_PATHS = {

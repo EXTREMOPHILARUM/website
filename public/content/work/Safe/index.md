@@ -1,9 +1,9 @@
 ---
 company: "Safe Security"
 location: "Mumbai"
-position: "DevSecOps Engineer"
+position: "DevSecOps Engineer & security analyst"
 tags: ["Security", "DevSecOps", "Automation", "Code Analysis"]
-startDate: "2020-06"
+startDate: "2020-01"
 endDate: "2021-11"
 ---
 

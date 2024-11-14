@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import WorkTimelineItem from './WorkTimelineItem';
 import WorkModal from './WorkModal';
 import { loadAllContent } from '../../utils/contentLoader';
+import { Button } from '../ui/button';
 
 const container = {
   hidden: { opacity: 0 },
@@ -67,15 +68,37 @@ const WorkExperience = () => {
   return (
     <section id="work" className="py-16 px-4 md:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <motion.h2 
-          className="text-3xl font-bold tracking-tight mb-12 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        >
-          Work Experience
-        </motion.h2>
+        <div className="flex items-center justify-center gap-4 mb-12">
+          <motion.h2 
+            className="text-3xl font-bold tracking-tight text-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            Work Experience
+          </motion.h2>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+          >
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => window.open('/Resume.pdf', '_blank')}
+              className="flex items-center gap-2"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Resume
+            </Button>
+          </motion.div>
+        </div>
         <motion.div 
           className="relative"
           variants={container}

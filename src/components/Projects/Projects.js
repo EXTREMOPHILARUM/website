@@ -25,7 +25,13 @@ const Projects = () => {
       try {
         setLoading(true);
         const projectsData = await loadAllContent('projects');
-        setProjects(projectsData);
+        // Sort projects by date in descending order (newest first)
+        const sortedProjects = projectsData.sort((a, b) => {
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
+          return dateB - dateA;
+        });
+        setProjects(sortedProjects);
       } catch (err) {
         setError(err.message);
       } finally {

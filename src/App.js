@@ -7,6 +7,7 @@ import WorkExperience from './components/WorkExperience/WorkExperience';
 import Blog from './components/Blog/Blog';
 import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
+import Pricing from './components/Pricing/Pricing';
 import { ThemeProvider } from './contexts/ThemeContext';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Hero />
           <Skills />
           <Projects />
+          <Pricing />
           <WorkExperience />
           <Blog initialSlug={slug} />
           <Contact />

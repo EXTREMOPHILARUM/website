@@ -59,6 +59,9 @@
   h1 {
     @apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent;
   }
+  .dark h1 {
+    @apply bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent;
+  }
   h2 {
     @apply scroll-m-20 text-3xl font-semibold tracking-tight text-secondary;
   }

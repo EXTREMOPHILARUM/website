@@ -11,9 +11,10 @@ const ProjectCard = ({ item, onItemClick }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
+      className="h-[300px]"
     >
       <Card 
-        className="cursor-pointer hover:shadow-lg transition-shadow"
+        className="cursor-pointer hover:shadow-lg transition-shadow h-full flex flex-col"
         onClick={() => onItemClick && onItemClick(item)}
       >
         <CardHeader className="pb-3">
@@ -24,9 +25,9 @@ const ProjectCard = ({ item, onItemClick }) => {
             </p>
           )}
         </CardHeader>
-        <CardContent>
+        <CardContent className="flex-1 flex flex-col justify-between">
           {item.description && (
-            <p className="text-sm text-muted-foreground mb-4">{item.description}</p>
+            <p className="text-sm text-muted-foreground mb-4 line-clamp-3">{item.description}</p>
           )}
           {item.tags && (
             <div className="flex flex-wrap gap-2">
