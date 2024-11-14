@@ -1,25 +1,20 @@
-import { EmailMessage } from "cloudflare:email";
-
 export async function onRequest(context) {
-  const { request } = context;
+  const { request, env } = context;
   const { subject, body, userEmail } = await request.json();
-  
-  const emailContent = `
-From: ${userEmail}
-Reply-To: ${userEmail}
-Content-Type: text/plain
-
-${body}
-`;
-
-  const message = new EmailMessage(
-    "noreply@saurabhn.com",
-    "me@saurabhn.com",
-    emailContent
-  );
 
   try {
-    await context.env.SEB.send(message);
+    const email = {
+      from: env.send_email.fromAddress,
+      to: "me@saurabhn.com",
+      subject: subject,
+      text: `From: ${userEmail}\n\n${body}`,
+      headers: {
+        "Reply-To": userEmail
+      }
+    };
+
+    await env.send_email.send(email);
+
     return new Response(JSON.stringify({ success: true }), {
       headers: { 'Content-Type': 'application/json' }
     });
