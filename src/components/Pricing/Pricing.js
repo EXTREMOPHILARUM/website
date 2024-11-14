@@ -6,7 +6,7 @@ import { PRICING_DATA } from '../../config/settings';
 const Pricing = () => {
   const handleEmailClick = async (subject, body) => {
     try {
-      const response = await fetch('/email', {
+      const response = await fetch('/api/email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ subject, body })
