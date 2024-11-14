@@ -1,45 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
 import { PRICING_DATA } from '../../config/settings';
-import EmailModal from './EmailModal';
 
 const Pricing = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState(null);
-
-  const handleContactClick = (plan) => {
-    setSelectedPlan(plan);
-    setIsModalOpen(true);
-  };
-
-  const handleEmailSubmit = async (userEmail, message) => {
-    try {
-      const response = await fetch('/api/email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          subject: selectedPlan.emailSubject,
-          body: `From: ${userEmail}\n\n${message}\n\nPlan: ${selectedPlan.title}`,
-          userEmail
-        })
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to send email');
-      }
-      
-      alert('Email sent successfully!');
-      setIsModalOpen(false);
-    } catch (error) {
-      console.error('Error sending email:', error);
-      alert('Failed to send email. Please try again later.');
-    }
-  };
-
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-    setSelectedPlan(null);
+  const handleEmailClick = (subject, body) => {
+    const mailtoUrl = `mailto:me@saurabhn.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoUrl;
   };
 
   return (
@@ -63,7 +30,7 @@ const Pricing = () => {
               </ul>
               <Button 
                 className="w-full"
-                onClick={() => handleContactClick(plan)}
+                onClick={() => handleEmailClick(plan.emailSubject, plan.emailBody)}
               >
                 Contact for {plan.title}
               </Button>
@@ -71,13 +38,6 @@ const Pricing = () => {
           ))}
         </div>
       </div>
-      <EmailModal
-        isOpen={isModalOpen}
-        onClose={handleModalClose}
-        onSubmit={handleEmailSubmit}
-        subject={selectedPlan?.emailSubject}
-        defaultMessage={selectedPlan?.emailBody}
-      />
     </section>
   );
 };
