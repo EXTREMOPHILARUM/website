@@ -14,13 +14,13 @@ const SEO = ({
     // Update meta tags
     if (isReset) {
       // Reset to default values
-      document.title = 'Saurabh Nandedkar - Portfolio & Technical Blog';
-      updateMetaTag('description', 'Professional portfolio and technical blog by Saurabh Nandedkar. Featuring articles on security, DevSecOps, automation, and software development.');
-      updateMetaTag('og:title', 'Saurabh Nandedkar - Portfolio & Technical Blog');
-      updateMetaTag('og:description', 'Professional portfolio and technical blog featuring articles on security, DevSecOps, automation, and software development.');
+      document.title = 'Saurabh Nandedkar - Full-Stack Engineer & Tech Polymath';
+      updateMetaTag('description', 'Professional portfolio and technical blog by Saurabh Nandedkar. Expertise in cloud architecture, AI systems, distributed computing, and full-stack development.');
+      updateMetaTag('og:title', 'Saurabh Nandedkar - Full-Stack Engineer & Tech Polymath');
+      updateMetaTag('og:description', 'Professional portfolio showcasing expertise in cloud architecture, AI systems, distributed computing, and full-stack development.');
       updateMetaTag('og:type', 'website');
-      updateMetaTag('twitter:title', 'Saurabh Nandedkar - Portfolio & Technical Blog');
-      updateMetaTag('twitter:description', 'Professional portfolio and technical blog featuring articles on security, DevSecOps, automation, and software development.');
+      updateMetaTag('twitter:title', 'Saurabh Nandedkar - Full-Stack Engineer & Tech Polymath');
+      updateMetaTag('twitter:description', 'Professional portfolio showcasing expertise in cloud architecture, AI systems, distributed computing, and full-stack development.');
       return;
     }
 

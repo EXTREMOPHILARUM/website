@@ -20,7 +20,7 @@ const Hero = () => {
   const highlights = [
     { number: '5+', label: 'Years Experience' },
     { number: '15+', label: 'Projects Delivered' },
-    { number: '3+', label: 'Cloud Platforms' }
+    { number: '8+', label: 'Tech Domains' }
   ];
 
   return (
@@ -59,12 +59,13 @@ const Hero = () => {
               </motion.span>
             </h1>
             <h2 className="text-2xl md:text-3xl font-semibold text-muted-foreground mb-6">
-              Software Engineer & Cloud Architect
+              Full-Stack Engineer & Tech Polymath
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
-              I'm a passionate software engineer specializing in building secure, scalable systems 
-              and infrastructure. With expertise in cloud architecture, DevSecOps, and distributed systems,
-              I help organizations build robust and efficient solutions.
+              I'm a versatile engineer crafting solutions across cloud architecture, AI systems, 
+              distributed computing, and full-stack development. From building secure trading platforms 
+              to implementing AI-powered applications, I thrive on mastering diverse technologies 
+              to solve complex challenges.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
