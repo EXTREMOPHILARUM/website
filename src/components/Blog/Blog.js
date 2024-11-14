@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BlogCard from './BlogCard';
 import BlogModal from './BlogModal';
@@ -17,6 +16,21 @@ const container = {
   }
 };
 
+// Lazy load motion component
+const MotionDiv = lazy(() => 
+  import('framer-motion').then(mod => {
+    const { motion } = mod;
+    return { default: motion.div };
+  })
+);
+
+const MotionH2 = lazy(() => 
+  import('framer-motion').then(mod => {
+    const { motion } = mod;
+    return { default: motion.h2 };
+  })
+);
+
 const Blog = ({ initialSlug }) => {
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
@@ -29,7 +43,6 @@ const Blog = ({ initialSlug }) => {
       try {
         setLoading(true);
         const postsData = await loadAllContent('blog');
-        // Sort posts by date in descending order (newest first)
         const sortedPosts = postsData.sort((a, b) => {
           const dateA = new Date(a.date);
           const dateB = new Date(b.date);
@@ -37,7 +50,6 @@ const Blog = ({ initialSlug }) => {
         });
         setPosts(sortedPosts);
 
-        // If initialSlug is provided, open that post
         if (initialSlug) {
           const post = sortedPosts.find(p => p.slug === initialSlug);
           if (post) {
@@ -64,8 +76,52 @@ const Blog = ({ initialSlug }) => {
     navigate('/', { replace: true });
   };
 
-  // Get all unique tags from posts for SEO
   const allTags = [...new Set(posts.flatMap(post => post.tags || []))];
+
+  const Title = () => (
+    <Suspense fallback={<h2 className="text-3xl font-bold tracking-tight mb-12 text-center">Blog Posts</h2>}>
+      <MotionH2 
+        className="text-3xl font-bold tracking-tight mb-12 text-center"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        Blog Posts
+      </MotionH2>
+    </Suspense>
+  );
+
+  const PostsGrid = () => (
+    <Suspense fallback={
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {posts.map((item) => (
+          <BlogCard
+            key={item.slug}
+            item={item}
+            onItemClick={() => handlePostClick(item)}
+          />
+        ))}
+      </div>
+    }>
+      <MotionDiv 
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        variants={container}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-100px" }}
+      >
+        {posts.map((item, index) => (
+          <BlogCard
+            key={item.slug}
+            item={item}
+            index={index}
+            onItemClick={() => handlePostClick(item)}
+          />
+        ))}
+      </MotionDiv>
+    </Suspense>
+  );
 
   return (
     <>
@@ -78,15 +134,7 @@ const Blog = ({ initialSlug }) => {
 
       <section id="blog" className="py-16 px-4 md:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <motion.h2 
-            className="text-3xl font-bold tracking-tight mb-12 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            Blog Posts
-          </motion.h2>
+          <Title />
 
           {loading ? (
             <div className="flex items-center justify-center min-h-[400px]">
@@ -97,22 +145,7 @@ const Blog = ({ initialSlug }) => {
               Error loading blog posts: {error}
             </div>
           ) : (
-            <motion.div 
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-              variants={container}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: "-100px" }}
-            >
-              {posts.map((item, index) => (
-                <BlogCard
-                  key={item.slug}
-                  item={item}
-                  index={index}
-                  onItemClick={() => handlePostClick(item)}
-                />
-              ))}
-            </motion.div>
+            <PostsGrid />
           )}
 
           <BlogModal

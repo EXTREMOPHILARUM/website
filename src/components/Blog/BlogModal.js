@@ -1,6 +1,4 @@
-import React, { useState, useCallback } from 'react';
-import { motion } from 'framer-motion';
-import MarkdownContent from '../MarkdownContent';
+import React, { useState, useCallback, lazy, Suspense } from 'react';
 import SEO from '../shared/SEO';
 import {
   Dialog,
@@ -8,6 +6,22 @@ import {
   DialogHeader,
   DialogTitle,
 } from '../ui/dialog';
+
+// Lazy load components
+const MarkdownContent = lazy(() => import('../MarkdownContent'));
+const MotionSpan = lazy(() => 
+  import('framer-motion').then(mod => {
+    const { motion } = mod;
+    return { default: motion.span };
+  })
+);
+
+const MotionDiv = lazy(() => 
+  import('framer-motion').then(mod => {
+    const { motion } = mod;
+    return { default: motion.div };
+  })
+);
 
 const BlogModal = ({ isOpen, onClose, post }) => {
   const [showCopied, setShowCopied] = useState(false);
@@ -51,7 +65,6 @@ const BlogModal = ({ isOpen, onClose, post }) => {
     e.preventDefault();
     if (!post) return;
     
-    // Remove any existing context menus
     const existingMenu = document.getElementById('context-menu');
     if (existingMenu) {
       document.body.removeChild(existingMenu);
@@ -100,6 +113,24 @@ const BlogModal = ({ isOpen, onClose, post }) => {
   };
 
   if (!post) return null;
+
+  const TagSpan = ({ tag, index }) => (
+    <Suspense fallback={
+      <span className="inline-flex items-center rounded-md bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground ring-1 ring-inset ring-secondary">
+        {tag}
+      </span>
+    }>
+      <MotionSpan
+        key={index}
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: index * 0.1 }}
+        className="inline-flex items-center rounded-md bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground ring-1 ring-inset ring-secondary"
+      >
+        {tag}
+      </MotionSpan>
+    </Suspense>
+  );
 
   return (
     <>
@@ -150,15 +181,7 @@ const BlogModal = ({ isOpen, onClose, post }) => {
               {post.tags && (
                 <div className="flex flex-wrap gap-2">
                   {post.tags.map((tag, index) => (
-                    <motion.span
-                      key={index}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: index * 0.1 }}
-                      className="inline-flex items-center rounded-md bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground ring-1 ring-inset ring-secondary"
-                    >
-                      {tag}
-                    </motion.span>
+                    <TagSpan key={index} tag={tag} index={index} />
                   ))}
                 </div>
               )}
@@ -168,14 +191,16 @@ const BlogModal = ({ isOpen, onClose, post }) => {
             </div>
           </DialogHeader>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="prose prose-sm dark:prose-invert max-w-none mt-4"
-          >
-            <MarkdownContent content={post.content} />
-          </motion.div>
+          <Suspense fallback={<div className="prose prose-sm dark:prose-invert max-w-none mt-4">Loading...</div>}>
+            <MotionDiv
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="prose prose-sm dark:prose-invert max-w-none mt-4"
+            >
+              <MarkdownContent content={post.content} />
+            </MotionDiv>
+          </Suspense>
         </DialogContent>
       </Dialog>
     </>

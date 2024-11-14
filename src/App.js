@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { useParams } from 'react-router-dom';
-import Hero from './components/Hero/Hero';
-import Skills from './components/Skills/Skills';
-import Projects from './components/Projects/Projects';
-import WorkExperience from './components/WorkExperience/WorkExperience';
-import Blog from './components/Blog/Blog';
-import Contact from './components/Contact/Contact';
-import Footer from './components/Footer/Footer';
-import Pricing from './components/Pricing/Pricing';
+import Loading from './components/Loading/Loading';
 import { ThemeProvider } from './contexts/ThemeContext';
+
+// Lazy load components
+const Hero = lazy(() => import('./components/Hero/Hero'));
+const Skills = lazy(() => import('./components/Skills/Skills'));
+const Projects = lazy(() => import('./components/Projects/Projects'));
+const WorkExperience = lazy(() => import('./components/WorkExperience/WorkExperience'));
+const Blog = lazy(() => import('./components/Blog/Blog'));
+const Contact = lazy(() => import('./components/Contact/Contact'));
+const Footer = lazy(() => import('./components/Footer/Footer'));
+const Pricing = lazy(() => import('./components/Pricing/Pricing'));
 
 function App() {
   const { slug } = useParams();
@@ -17,15 +20,19 @@ function App() {
     <ThemeProvider>
       <div className="min-h-screen bg-background font-sans antialiased">
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Hero />
-          <Skills />
-          <Projects />
-          <Pricing />
-          <WorkExperience />
-          <Blog initialSlug={slug} />
-          <Contact />
+          <Suspense fallback={<Loading />}>
+            <Hero />
+            <Skills />
+            <Projects />
+            <Pricing />
+            <WorkExperience />
+            <Blog initialSlug={slug} />
+            <Contact />
+          </Suspense>
         </main>
-        <Footer />
+        <Suspense fallback={<Loading />}>
+          <Footer />
+        </Suspense>
       </div>
     </ThemeProvider>
   );

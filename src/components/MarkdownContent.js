@@ -15,11 +15,9 @@ const parseFrontmatter = (content) => {
     const [key, ...valueArr] = line.split(':');
     if (key && valueArr.length) {
       let value = valueArr.join(':').trim();
-      // Handle arrays in frontmatter (e.g., tags)
       if (value.startsWith('[') && value.endsWith(']')) {
         value = value.slice(1, -1).split(',').map(item => item.trim());
       } else {
-        // Remove quotes if present
         value = value.replace(/^["'](.*)["']$/, '$1');
       }
       data[key.trim()] = value;
@@ -50,7 +48,9 @@ const MarkdownContent = ({ content }) => {
         {frontmatter.description && <p className="description">{frontmatter.description}</p>}
       </div>
       <div className="markdown-body">
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{markdownContent}</ReactMarkdown>
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          {markdownContent}
+        </ReactMarkdown>
       </div>
     </div>
   );
