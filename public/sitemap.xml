@@ -5,6 +5,22 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://saurabhn.com/blog/trading-news-chatbot</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://saurabhn.com/blog/automated-security-pipeline</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://saurabhn.com/blog/high-availability-email-infrastructure</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://saurabhn.com/blog/multi-cloud-trading-architecture</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://saurabhn.com/content/blog/trading-news-chatbot/index.md</loc>
     <priority>0.8</priority>
   </url>
