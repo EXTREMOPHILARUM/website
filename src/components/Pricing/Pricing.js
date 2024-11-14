@@ -1,15 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
 import { PRICING_DATA } from '../../config/settings';
+import EmailModal from './EmailModal';
 
 const Pricing = () => {
-  const handleEmailClick = async (subject, body) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState(null);
+
+  const handleContactClick = (plan) => {
+    setSelectedPlan(plan);
+    setIsModalOpen(true);
+  };
+
+  const handleEmailSubmit = async (userEmail, message) => {
     try {
       const response = await fetch('/api/email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ subject, body })
+        body: JSON.stringify({
+          subject: selectedPlan.emailSubject,
+          body: `From: ${userEmail}\n\n${message}\n\nPlan: ${selectedPlan.title}`,
+          userEmail
+        })
       });
       
       if (!response.ok) {
@@ -17,14 +30,20 @@ const Pricing = () => {
       }
       
       alert('Email sent successfully!');
+      setIsModalOpen(false);
     } catch (error) {
       console.error('Error sending email:', error);
       alert('Failed to send email. Please try again later.');
     }
   };
 
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setSelectedPlan(null);
+  };
+
   return (
-    <section className="py-16 bg-background">
+    <section id="pricing" className="py-16 bg-background">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-center mb-12">Services & Pricing</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -44,7 +63,7 @@ const Pricing = () => {
               </ul>
               <Button 
                 className="w-full"
-                onClick={() => handleEmailClick(plan.emailSubject, plan.emailBody)}
+                onClick={() => handleContactClick(plan)}
               >
                 Contact for {plan.title}
               </Button>
@@ -52,6 +71,13 @@ const Pricing = () => {
           ))}
         </div>
       </div>
+      <EmailModal
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        onSubmit={handleEmailSubmit}
+        subject={selectedPlan?.emailSubject}
+        defaultMessage={selectedPlan?.emailBody}
+      />
     </section>
   );
 };

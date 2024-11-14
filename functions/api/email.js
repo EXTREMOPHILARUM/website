@@ -1,23 +1,21 @@
 import { EmailMessage } from "cloudflare:email";
-import { createMimeMessage } from "mimetext";
 
 export async function onRequest(context) {
   const { request } = context;
-  const { subject, body } = await request.json();
+  const { subject, body, userEmail } = await request.json();
   
-  const msg = createMimeMessage();
-  msg.setSender({ name: "Portfolio Site", addr: "noreply@saurabhn.com" });
-  msg.setRecipient("me@saurabhn.com");
-  msg.setSubject(subject);
-  msg.addMessage({
-    contentType: 'text/plain',
-    data: body
-  });
+  const emailContent = `
+From: ${userEmail}
+Reply-To: ${userEmail}
+Content-Type: text/plain
+
+${body}
+`;
 
   const message = new EmailMessage(
     "noreply@saurabhn.com",
     "me@saurabhn.com",
-    msg.asRaw()
+    emailContent
   );
 
   try {
