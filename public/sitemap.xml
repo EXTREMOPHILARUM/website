@@ -5,75 +5,63 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://saurabhn.com/blog</loc>
+    <loc>https://saurabhn.com/content/blog/trading-news-chatbot/index.md</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://saurabhn.com/blog/trading-news-chatbot</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://saurabhn.com/blog/automated-security-pipeline</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://saurabhn.com/blog/high-availability-email-infrastructure</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://saurabhn.com/blog/multi-cloud-trading-architecture</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://saurabhn.com/projects</loc>
+    <loc>https://saurabhn.com/content/blog/automated-security-pipeline/index.md</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://saurabhn.com/projects/ai-trading-rag-chatbot</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://saurabhn.com/projects/confidential-trading-platform</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://saurabhn.com/projects/educational-local-llm-system</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://saurabhn.com/projects/flipkart-health-plus</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://saurabhn.com/projects/password-manager</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://saurabhn.com/projects/semiconductor-manufacturing-llm</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://saurabhn.com/projects/tax-helper-rag-system</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://saurabhn.com/work</loc>
+    <loc>https://saurabhn.com/content/blog/high-availability-email-infrastructure/index.md</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://saurabhn.com/work/freelance</loc>
-    <priority>0.7</priority>
+    <loc>https://saurabhn.com/content/blog/multi-cloud-trading-architecture/index.md</loc>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://saurabhn.com/work/prismberry</loc>
-    <priority>0.7</priority>
+    <loc>https://saurabhn.com/content/projects/ai-trading-rag-chatbot/index.md</loc>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://saurabhn.com/work/safe</loc>
-    <priority>0.7</priority>
+    <loc>https://saurabhn.com/content/projects/confidential-trading-platform/index.md</loc>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://saurabhn.com/work/turing</loc>
-    <priority>0.7</priority>
+    <loc>https://saurabhn.com/content/projects/educational-local-llm-system/index.md</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://saurabhn.com/content/projects/flipkart-health-plus/index.md</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://saurabhn.com/content/projects/password-manager/index.md</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://saurabhn.com/content/projects/semiconductor-manufacturing-llm/index.md</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://saurabhn.com/content/projects/tax-helper-rag-system/index.md</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://saurabhn.com/content/work/freelance/index.md</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://saurabhn.com/content/work/prismberry/index.md</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://saurabhn.com/content/work/safe/index.md</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://saurabhn.com/content/work/turing/index.md</loc>
+    <priority>0.8</priority>
   </url>
 </urlset>
