@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import Loading from './components/Loading/Loading';
 import { ThemeProvider } from './contexts/ThemeContext';
 
@@ -8,13 +8,13 @@ const Hero = lazy(() => import('./components/Hero/Hero'));
 const Skills = lazy(() => import('./components/Skills/Skills'));
 const Projects = lazy(() => import('./components/Projects/Projects'));
 const WorkExperience = lazy(() => import('./components/WorkExperience/WorkExperience'));
-const Blog = lazy(() => import('./components/Blog/Blog'));
+// const Blog = lazy(() => import('./components/Blog/Blog'));
 const Contact = lazy(() => import('./components/Contact/Contact'));
 const Footer = lazy(() => import('./components/Footer/Footer'));
 const Pricing = lazy(() => import('./components/Pricing/Pricing'));
 
 function App() {
-  const { slug } = useParams();
+  // const { slug } = useParams();
 
   return (
     <ThemeProvider>
@@ -23,10 +23,11 @@ function App() {
           <Suspense fallback={<Loading />}>
             <Hero />
             <Skills />
-            <Projects />
+            
             <Pricing />
             <WorkExperience />
-            <Blog initialSlug={slug} />
+            {/* <Blog initialSlug={slug} /> */}
+            <Projects />
             <Contact />
           </Suspense>
         </main>
