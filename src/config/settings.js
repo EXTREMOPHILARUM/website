@@ -46,18 +46,18 @@ export const CONTENT_STRUCTURE = {
 
 // Pricing data
 export const PRICING_DATA = [
-  {
-    title: "Basic Consultation",
-    price: "$100/hr",
-    features: [
-      "Technical architecture review",
-      "Code review",
-      "Best practices guidance",
-      "1-on-1 consultation"
-    ],
-    emailSubject: "Basic Consultation Inquiry",
-    emailBody: "Hi Saurabh, I'm interested in the Basic Consultation service. Please let me know your availability for a discussion."
-  },
+  // {
+  //   title: "Basic Consultation",
+  //   price: "$100/hr",
+  //   features: [
+  //     "Technical architecture review",
+  //     "Code review",
+  //     "Best practices guidance",
+  //     "1-on-1 consultation"
+  //   ],
+  //   emailSubject: "Basic Consultation Inquiry",
+  //   emailBody: "Hi Saurabh, I'm interested in the Basic Consultation service. Please let me know your availability for a discussion."
+  // },
   {
     title: "Project Development",
     price: "Custom",
