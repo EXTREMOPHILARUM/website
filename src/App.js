@@ -24,7 +24,7 @@ function App() {
             <Hero />
             <Skills />
             
-            <Pricing />
+            // <Pricing />
             <WorkExperience />
             {/* <Blog initialSlug={slug} /> */}
             <Projects />
