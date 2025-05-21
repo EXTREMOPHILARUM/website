@@ -68,9 +68,9 @@ const WorkExperience = () => {
   return (
     <section id="work" className="py-16 px-4 md:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-center gap-4 mb-12">
+        <div className="flex items-center justify-center gap-4 mb-12"> {/* This div is for title + button, mb-12 is fine here */}
           <motion.h2 
-            className="text-3xl font-bold tracking-tight text-center"
+            className="section-title !mb-0" /* Applied section-title, remove its default bottom margin for this specific layout */
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}

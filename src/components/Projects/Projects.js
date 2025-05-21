@@ -61,11 +61,11 @@ const Projects = () => {
   return (
     <section id="projects" className="py-16 px-4 md:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold tracking-tight mb-8 text-center">
+        <h2 className="section-title"> {/* Applied section-title class */}
           Featured Projects
         </h2>
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" // Retained gap-6, it's generally good.
           variants={container}
           initial="hidden"
           animate="show"

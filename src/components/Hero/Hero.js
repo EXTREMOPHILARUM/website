@@ -48,20 +48,20 @@ const Hero = () => {
             transition={{ duration: 0.5 }}
             className="mb-8"
           >
-            <h1 className="text-4xl md:text-6xl font-bold mb-4">
+            <h1 className="text-4xl md:text-6xl font-bold mb-4"> {/* Typography should be handled by base h1 style */}
               Hi, I'm Saurabh{' '}
               <motion.span
-                className="inline-block waving-hand"
-                animate={{ rotate: [0, 14, -8, 14, -4, 10, 0] }}
-                transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 1 }}
+                className="inline-block waving-hand" // Class for potential specific styling if needed
+                animate={{ rotate: [0, 10, -5, 10, 0] }} // Reduced rotation
+                transition={{ duration: 1.5, repeat: 1, repeatDelay: 2, ease: "easeInOut" }} // Adjusted transition
               >
                 👋
               </motion.span>
             </h1>
-            <h2 className="text-2xl md:text-3xl font-semibold text-muted-foreground mb-6">
+            <h2 className="text-2xl md:text-3xl font-semibold mb-6"> {/* Typography should be handled by base h2 style, removed text-muted-foreground */}
               Full-Stack Engineer & Tech Polymath
             </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
+            <p className="text-lg max-w-3xl mx-auto mb-8"> {/* Typography should be handled by base p style, removed text-muted-foreground */}
               I'm a versatile engineer crafting solutions across cloud architecture, AI systems, 
               distributed computing, and full-stack development. From building secure trading platforms 
               to implementing AI-powered applications, I thrive on mastering diverse technologies 
@@ -70,16 +70,16 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 asChild
-                size="lg"
-                className="text-base"
+                size="lg" // Retained size
+                className="text-base btn-primary" // Ensured btn-primary for correct styling
               >
                 <a href="#projects">View My Work</a>
               </Button>
               <Button
                 asChild
-                variant="secondary"
-                size="lg"
-                className="text-base"
+                variant="secondary" // This will now use the simpler secondary button style
+                size="lg" // Retained size
+                className="text-base btn-secondary" // Ensured btn-secondary for correct styling
               >
                 <a href="#contact">Get in Touch</a>
               </Button>
