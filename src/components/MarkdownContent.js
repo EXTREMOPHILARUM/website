@@ -92,10 +92,12 @@ const MarkdownContent = ({ content }) => {
               <pre className="whitespace-pre-wrap overflow-x-auto max-w-full" {...props} />
             ),
             img: ({node, ...props}) => (
-              <img className="max-w-full h-auto" {...props} />
+              <img className="max-w-full h-auto" alt={props.alt || "Markdown content image"} {...props} />
             ),
-            a: ({node, ...props}) => (
-              <a className="break-words" {...props} />
+            a: ({node, children, ...props}) => (
+              <a className="break-words" {...props}>
+                {children || props.href}
+              </a>
             )
           }}
         >
