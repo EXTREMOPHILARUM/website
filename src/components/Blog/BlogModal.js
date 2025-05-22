@@ -145,7 +145,7 @@ const BlogModal = ({ isOpen, onClose, post }) => {
         />
       )}
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto p-4 md:p-6">
           <DialogHeader>
             <div className="flex justify-between items-start" onContextMenu={handleContextMenu}>
               <DialogTitle className="text-2xl font-bold">{post.title}</DialogTitle>
@@ -191,12 +191,12 @@ const BlogModal = ({ isOpen, onClose, post }) => {
             </div>
           </DialogHeader>
 
-          <Suspense fallback={<div className="prose prose-sm dark:prose-invert max-w-none mt-4">Loading...</div>}>
+          <Suspense fallback={<div className="prose prose-sm dark:prose-invert w-full mt-4">Loading...</div>}>
             <MotionDiv
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="prose prose-sm dark:prose-invert max-w-none mt-4"
+              className="prose prose-sm dark:prose-invert w-full mt-4 overflow-hidden max-w-full"
             >
               <MarkdownContent content={post.content} />
             </MotionDiv>

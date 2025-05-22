@@ -24,6 +24,9 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
     --radius: 0.5rem;
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
   }
  
   .dark {
@@ -46,6 +49,9 @@
     --border: 223 25% 22%;
     --input: 223 25% 22%;
     --ring: 195 85% 60%;
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
   }
 }
 
@@ -55,6 +61,13 @@
   }
   body {
     @apply bg-gradient-to-br from-background via-background to-muted text-foreground min-h-screen;
+    color: rgb(var(--foreground-rgb));
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgb(var(--background-end-rgb))
+      )
+      rgb(var(--background-start-rgb));
   }
   h1 {
     @apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent;
@@ -104,4 +117,103 @@
   .waving-hand {
     @apply text-foreground bg-none;
   }
+}
+
+/* Blog styles */
+.prose {
+  width: 100%;
+  max-width: 100% !important;
+}
+
+.prose p {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  text-wrap: pretty;
+}
+
+.prose pre {
+  overflow-x: auto;
+  white-space: pre;
+  word-wrap: normal;
+  max-width: 100%;
+}
+
+.prose code {
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Mobile scrolling fix */
+html,
+body {
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* For code syntax highlighting */
+.markdown-body pre {
+  border-radius: 0.375rem;
+  margin: 1.5rem 0;
+  max-width: 100%;
+}
+
+.markdown-body pre > div {
+  border-radius: 0.375rem;
+  overflow-x: auto !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Fix for code block width */
+.markdown-content {
+  width: 100%;
+  max-width: 100%;
+}
+
+.markdown-body pre > div > code {
+  white-space: pre;
+  font-size: 0.85em;
+}
+
+/* When mobile, ensure content wraps properly */
+@media (max-width: 640px) {
+  .prose pre code {
+    white-space: pre-wrap;
+    font-size: 0.8em;
+  }
+  
+  .prose pre {
+    font-size: 0.85em;
+  }
+}
+
+/* Handle emojis in headings */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* Dark mode overrides */
+.dark .prose pre {
+  background-color: rgb(30, 41, 59);
+}
+
+.dark .markdown-body pre > div {
+  background-color: rgb(30, 41, 59) !important;
 }

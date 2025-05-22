@@ -3,10 +3,10 @@ title: "🔒 Surviving the Air Gap: Building Your Own Debian Repository Fortress
 tags: ["Linux", "Debian", "DevOps", "Security", "Infrastructure"]
 description: "A comprehensive guide to creating self-sufficient Debian repositories for air-gapped environments using reprepro and apt-rdepends"
 author: "Saurabh Nandedkar"
-date: "2023-10-25"
+date: "2025-05-23"
 ---
 
-# 🔒 Surviving the Air Gap: Building Your Own Debian Repository Fortress with Reprepro & apt-rdepends
+# 🔒 Surviving the Air Gap: Building Your Own Debian Repository Fortress with Reprepro & apt-rdepends   
 
 *Or: How I Learned to Stop Worrying and Love Offline Package Management*
 
