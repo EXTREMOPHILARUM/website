@@ -1,5 +1,5 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import BlogCard from './BlogCard';
 import BlogModal from './BlogModal';
 import SEO from '../shared/SEO';
@@ -31,12 +31,13 @@ const MotionH2 = lazy(() =>
   })
 );
 
-const Blog = ({ initialSlug }) => {
+const Blog = () => {
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { slug } = useParams();
 
   useEffect(() => {
     const loadPosts = async () => {
@@ -50,21 +51,22 @@ const Blog = ({ initialSlug }) => {
         });
         setPosts(sortedPosts);
 
-        if (initialSlug) {
-          const post = sortedPosts.find(p => p.slug === initialSlug);
+        if (slug) {
+          const post = sortedPosts.find(p => p.slug === slug);
           if (post) {
             setSelectedPost(post);
           }
         }
       } catch (err) {
         setError(err.message);
+        console.error('Error loading blog posts:', err);
       } finally {
         setLoading(false);
       }
     };
 
     loadPosts();
-  }, [initialSlug]);
+  }, [slug]);
 
   const handlePostClick = (post) => {
     setSelectedPost(post);
@@ -143,6 +145,11 @@ const Blog = ({ initialSlug }) => {
           ) : error ? (
             <div className="flex items-center justify-center min-h-[400px] text-destructive">
               Error loading blog posts: {error}
+            </div>
+          ) : posts.length === 0 ? (
+            <div className="flex flex-col items-center justify-center min-h-[400px] text-muted-foreground">
+              <p className="text-xl mb-4">No blog posts found</p>
+              <p className="text-sm max-w-md text-center">Blog posts will appear here when added to the content/blog directory</p>
             </div>
           ) : (
             <PostsGrid />

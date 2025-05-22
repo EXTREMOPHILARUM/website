@@ -7,8 +7,8 @@ import { ThemeProvider } from './contexts/ThemeContext';
 const Hero = lazy(() => import('./components/Hero/Hero'));
 const Skills = lazy(() => import('./components/Skills/Skills'));
 const Projects = lazy(() => import('./components/Projects/Projects'));
-const WorkExperience = lazy(() => import('./components/WorkExperience/WorkExperience'));
-// const Blog = lazy(() => import('./components/Blog/Blog'));
+// const WorkExperience = lazy(() => import('./components/WorkExperience/WorkExperience'));
+const Blog = lazy(() => import('./components/Blog/Blog'));
 const Contact = lazy(() => import('./components/Contact/Contact'));
 const Footer = lazy(() => import('./components/Footer/Footer'));
 const Pricing = lazy(() => import('./components/Pricing/Pricing'));
@@ -24,9 +24,9 @@ function App() {
             <Hero />
             <Skills />
             
-            // <Pricing />
-            <WorkExperience />
-            {/* <Blog initialSlug={slug} /> */}
+            <Pricing />
+            {/* <WorkExperience /> */}
+            <Blog />
             <Projects />
             <Contact />
           </Suspense>

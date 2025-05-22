@@ -22,10 +22,11 @@ export const CONTENT_TYPES = {
 // Content structure mapping
 export const CONTENT_STRUCTURE = {
   [CONTENT_TYPES.BLOG]: [
-    'automated-security-pipeline',
-    'high-availability-email-infrastructure',
-    'multi-cloud-trading-architecture',
-    'trading-news-chatbot'
+    // 'automated-security-pipeline',
+    // 'high-availability-email-infrastructure',
+    // 'multi-cloud-trading-architecture',
+    // 'trading-news-chatbot',
+    'airgapped-repo-management'
   ],
   [CONTENT_TYPES.PROJECTS]: [
     'confidential-trading-platform',
