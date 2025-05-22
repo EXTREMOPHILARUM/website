@@ -147,34 +147,34 @@ const BlogModal = ({ isOpen, onClose, post }) => {
       <Dialog open={isOpen} onOpenChange={onClose}>
         <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto p-4 md:p-6">
           <DialogHeader>
-            <div className="flex justify-between items-start" onContextMenu={handleContextMenu}>
-              <DialogTitle className="text-2xl font-bold">{post.title}</DialogTitle>
-              <div className="relative">
-                <button
-                  onClick={handleShare}
-                  className="p-2 rounded-full hover:bg-secondary text-muted-foreground hover:text-secondary-foreground transition-colors group"
-                  aria-label="Share post"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
-                    <polyline points="16 6 12 2 8 6"/>
-                    <line x1="12" y1="2" x2="12" y2="15"/>
-                  </svg>
-                  <span className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-secondary text-secondary-foreground text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                    {navigator.share ? 'Share post' : 'Copy link'}
-                  </span>
-                </button>
-                {showCopied && (
-                  <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-secondary text-secondary-foreground text-xs px-2 py-1 rounded whitespace-nowrap">
-                    Link copied!
-                  </div>
-                )}
-              </div>
-            </div>
+            <DialogTitle className="text-2xl font-bold">{post.title}</DialogTitle>
             <div className="flex flex-col space-y-2">
-              {post.author && (
-                <p className="text-sm text-muted-foreground">By {post.author}</p>
-              )}
+              <div className="flex items-center space-x-2">
+                {post.author && (
+                  <p className="text-sm text-muted-foreground">By {post.author}</p>
+                )}
+                <div className="relative ml-auto" onContextMenu={handleContextMenu}>
+                  <button
+                    onClick={handleShare}
+                    className="p-2 rounded-full hover:bg-secondary text-muted-foreground hover:text-secondary-foreground transition-colors group"
+                    aria-label="Share post"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+                      <polyline points="16 6 12 2 8 6"/>
+                      <line x1="12" y1="2" x2="12" y2="15"/>
+                    </svg>
+                    <span className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-secondary text-secondary-foreground text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                      {navigator.share ? 'Share post' : 'Copy link'}
+                    </span>
+                  </button>
+                  {showCopied && (
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-secondary text-secondary-foreground text-xs px-2 py-1 rounded whitespace-nowrap">
+                      Link copied!
+                    </div>
+                  )}
+                </div>
+              </div>
               {post.date && (
                 <p className="text-sm text-muted-foreground">{formatDate(post.date)}</p>
               )}
