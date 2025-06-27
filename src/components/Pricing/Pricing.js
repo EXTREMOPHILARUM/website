@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
 import { PRICING_DATA } from '../../config/settings';
+import { getCalApi } from '@calcom/embed-react';
 
 const Pricing = () => {
-  const handleEmailClick = (subject, body) => {
-    const mailtoUrl = `mailto:me@saurabhn.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailtoUrl;
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({"namespace":"pricing"});
+      cal("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+    })();
+  }, []);
+
+  const getCalLink = (title) => {
+    if (title === "Project Development") {
+      return "saurabhn/custom-project-development";
+    } else if (title === "Enterprise Solutions") {
+      return "saurabhn/enterprise-solutions";
+    }
+    return "saurabhn/consultation";
   };
 
   return (
@@ -30,7 +42,9 @@ const Pricing = () => {
               </ul>
               <Button 
                 className="w-full"
-                onClick={() => handleEmailClick(plan.emailSubject, plan.emailBody)}
+                data-cal-namespace="pricing"
+                data-cal-link={getCalLink(plan.title)}
+                data-cal-config='{"layout":"month_view"}'
               >
                 Contact for {plan.title}
               </Button>
