@@ -175,12 +175,13 @@ const Contact = () => (
 );
 
 const Home = () => {
-  const { hash } = useLocation();
+  const { hash, key } = useLocation();
 
-  // Arriving from another route with /#section: scroll once the section exists.
+  // Router links preventDefault, so scroll ourselves; `key` changes on every
+  // navigation, including a repeat click on the hash that is already current.
   useEffect(() => {
     if (hash) document.getElementById(hash.slice(1))?.scrollIntoView();
-  }, [hash]);
+  }, [hash, key]);
 
   return (
     <>

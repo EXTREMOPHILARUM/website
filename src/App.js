@@ -42,7 +42,7 @@ const App = () => {
         <Outlet />
       </main>
       <footer className="mx-auto max-w-[1080px] px-5 pb-10 font-mono text-xs text-muted-foreground sm:px-6">
-        © {new Date().getFullYear()} {PROFILE.name} · Mumbai · Every claim links to its source
+        © {new Date().getFullYear()} {PROFILE.name} · Mumbai
       </footer>
     </div>
   );

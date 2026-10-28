@@ -8,8 +8,6 @@ const AppRoutes = () => (
   <Routes>
     <Route path="/" element={<App />}>
       <Route index element={<Home />} />
-      {/* Wakefield was briefly published locally as /work/ais-api. */}
-      <Route path="work/ais-api" element={<Navigate to="/work/wakefield" replace />} />
       <Route path="work/:slug" element={<Project />} />
       {/* Old /blog/*, /projects/* and /content/* URLs pointed at retired pages. */}
       <Route path="*" element={<Navigate to="/" replace />} />

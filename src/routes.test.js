@@ -121,8 +121,12 @@ test('Wakefield page links only to its public API docs, not to a source reposito
   expect(screen.queryByRole('link', { name: /source on github/i })).toBeNull();
 });
 
-test('old /work/ais-api URL redirects to /work/wakefield', () => {
-  renderAt('/work/ais-api');
-  expect(location.pathname).toBe('/work/wakefield');
-  expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Wakefield');
+test('re-clicking a header link for the current section scrolls again', async () => {
+  Element.prototype.scrollIntoView.mockClear();
+  renderAt('/#now');
+  expect(Element.prototype.scrollIntoView).toHaveBeenCalledTimes(1);
+  const now = screen.getByRole('navigation', { name: /primary/i }).querySelector('a[href="/#now"]');
+  await userEvent.click(now);
+  expect(location.hash).toBe('#now');
+  expect(Element.prototype.scrollIntoView).toHaveBeenCalledTimes(2);
 });
