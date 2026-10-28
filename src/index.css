@@ -1,219 +1,73 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
+/* Palette from the approved v2 concept (ui-ux-pro-max: Bento grid on a Swiss base). */
 @layer base {
   :root {
-    --background: 210 50% 98%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 200 30% 99%;
-    --card-foreground: 222.2 84% 4.9%;
+    --background: 48 14% 95%;      /* paper  #F6F5F1 */
+    --foreground: 240 5% 8%;       /* ink    #141416 */
+    --card: 0 0% 100%;
+    --card-foreground: 240 5% 8%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 215 50% 23%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 200 65% 45%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 185 25% 90%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 195 70% 50%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 200 30% 85%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --radius: 0.5rem;
-    --foreground-rgb: 0, 0, 0;
-    --background-start-rgb: 214, 219, 220;
-    --background-end-rgb: 255, 255, 255;
+    --popover-foreground: 240 5% 8%;
+    --primary: 240 5% 8%;
+    --primary-foreground: 48 14% 95%;
+    --secondary: 45 11% 91%;
+    --secondary-foreground: 240 5% 8%;
+    --muted: 45 11% 91%;
+    --muted-foreground: 240 4% 37%; /* #5A5A62, 6.4:1 on paper */
+    --accent: 21 88% 40%;           /* #C2410C, 5.0:1 on paper */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 45 12% 87%;           /* #E2E0D9 */
+    --input: 45 12% 87%;
+    --ring: 21 88% 40%;
+    --radius: 1.125rem;
   }
- 
-  .dark {
-    --background: 220 26% 14%;
-    --foreground: 210 40% 98%;
-    --card: 222 25% 18%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222 25% 18%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 195 85% 60%;
-    --primary-foreground: 222 47% 11%;
-    --secondary: 190 95% 39%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 223 25% 20%;
-    --muted-foreground: 210 40% 80%;
-    --accent: 185 85% 45%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 223 25% 22%;
-    --input: 223 25% 22%;
-    --ring: 195 85% 60%;
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-gradient-to-br from-background via-background to-muted text-foreground min-h-screen;
-    color: rgb(var(--foreground-rgb));
-    background: linear-gradient(
-        to bottom,
-        transparent,
-        rgb(var(--background-end-rgb))
-      )
-      rgb(var(--background-start-rgb));
+    @apply bg-background font-sans text-foreground antialiased;
+    font-size: 15px;
+    line-height: 1.55;
   }
-  h1 {
-    @apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent;
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 3px;
+    border-radius: 6px;
   }
-  .dark h1 {
-    @apply bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent;
-  }
-  h2 {
-    @apply scroll-m-20 text-3xl font-semibold tracking-tight text-secondary;
-  }
-  h3 {
-    @apply scroll-m-20 text-2xl font-semibold tracking-tight text-primary;
-  }
-  p {
-    @apply leading-7;
-  }
-  .section-title {
-    @apply text-3xl font-bold tracking-tight mb-8 text-center text-secondary;
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      transition: none !important;
+    }
   }
 }
 
 @layer components {
-  .btn {
-    @apply inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2;
+  .label {
+    @apply font-mono text-[11px] font-medium uppercase leading-none tracking-[0.12em] text-muted-foreground;
   }
-  .btn-primary {
-    @apply bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:opacity-90;
+  .tag {
+    @apply whitespace-nowrap rounded-[5px] border border-border bg-background px-[7px] py-[5px] font-mono text-[11px] leading-none;
   }
-  .btn-secondary {
-    @apply bg-gradient-to-r from-secondary to-accent text-secondary-foreground hover:opacity-90;
+  .tile {
+    @apply relative overflow-hidden rounded-lg border border-border bg-card p-[22px] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-14px_rgba(20,20,22,.25)];
   }
-  .btn-outline {
-    @apply border border-input bg-background hover:bg-accent/10 hover:text-accent transition-all duration-200;
-  }
-  .card {
-    @apply bg-gradient-to-br from-card via-background to-muted border-border hover:border-accent/30 transition-all duration-200 shadow-sm hover:shadow-md dark:shadow-none dark:hover:shadow-accent/5;
-  }
-  .skill-card {
-    @apply bg-gradient-to-br from-card via-background to-muted border-2 hover:border-accent/30 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-1 dark:shadow-none dark:hover:shadow-accent/10;
-  }
-  .timeline-item {
-    @apply border-l-2 border-secondary/30 hover:border-secondary transition-colors duration-200;
-  }
-  .nav-link {
-    @apply text-muted-foreground hover:text-accent transition-colors duration-200;
-  }
-  .waving-hand {
-    @apply text-foreground bg-none;
-  }
-}
-
-/* Blog styles */
-.prose {
-  width: 100%;
-  max-width: 100% !important;
-}
-
-.prose p {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  hyphens: auto;
-  text-wrap: pretty;
-}
-
-.prose pre {
-  overflow-x: auto;
-  white-space: pre;
-  word-wrap: normal;
-  max-width: 100%;
-}
-
-.prose code {
-  word-break: break-word;
-  white-space: pre-wrap;
-}
-
-.prose img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* Mobile scrolling fix */
-html,
-body {
-  overscroll-behavior: none;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* For code syntax highlighting */
-.markdown-body pre {
-  border-radius: 0.375rem;
-  margin: 1.5rem 0;
-  max-width: 100%;
-}
-
-.markdown-body pre > div {
-  border-radius: 0.375rem;
-  overflow-x: auto !important;
-  max-width: 100% !important;
-  box-sizing: border-box !important;
-}
-
-/* Fix for code block width */
-.markdown-content {
-  width: 100%;
-  max-width: 100%;
-}
-
-.markdown-body pre > div > code {
-  white-space: pre;
-  font-size: 0.85em;
-}
-
-/* When mobile, ensure content wraps properly */
-@media (max-width: 640px) {
-  .prose pre code {
-    white-space: pre-wrap;
-    font-size: 0.8em;
-  }
-  
-  .prose pre {
-    font-size: 0.85em;
-  }
-}
-
-/* Handle emojis in headings */
-.prose h1,
-.prose h2,
-.prose h3,
-.prose h4,
-.prose h5,
-.prose h6 {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.25rem;
-  width: 100%;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-}
-
-/* Dark mode overrides */
-.dark .prose pre {
-  background-color: rgb(30, 41, 59);
-}
-
-.dark .markdown-body pre > div {
-  background-color: rgb(30, 41, 59) !important;
 }

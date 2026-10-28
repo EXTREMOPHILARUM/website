@@ -1,61 +1,25 @@
-# Personal Portfolio Website
+# saurabhn.com
 
-A modern, responsive portfolio website built with React and Tailwind CSS, featuring a dark/light theme, animated components, and markdown-based content management.
-
-## Features
-
-- 🎨 Dark/Light Theme Support
-- 📱 Fully Responsive Design
-- ✨ Smooth Animations with Framer Motion
-- 📝 Blog Section with Markdown Support
-- 💼 Work Experience Timeline
-- 🚀 Projects Showcase
-- 💪 Skills Section
-- 📬 Contact Form
-- 🔄 Dynamic Content Loading
-
-## Tech Stack
-
-- React.js
-- Tailwind CSS
-- Framer Motion
-- React Router
-- Radix UI Components
-- Gray Matter & Remark for Markdown
-- Context API for State Management
+Personal site of Saurabh Nandedkar: a homepage plus a few project pages, built with React, React Router and Tailwind CSS.
 
 ## Documentation
 
 - [Development Guide](docs/DEVELOPMENT.md) - Setup and development workflow
 - [Contributing Guidelines](docs/CONTRIBUTING.md) - How to contribute to the project
-- [Content Management](docs/CONTENT.md) - How to manage blog posts, projects, and work experience
+- [Content Guide](docs/CONTENT.md) - How to edit copy and add project pages
 
 ## Project Structure
 
 ```
 src/
-├── components/         # React components
-│   ├── Blog/          # Blog components
-│   ├── Contact/       # Contact form
-│   ├── Footer/        # Footer component
-│   ├── Hero/          # Hero section
-│   ├── Loading/       # Loading states
-│   ├── Modal/         # Reusable modal
-│   ├── Projects/      # Projects section
-│   ├── Skills/        # Skills showcase
-│   ├── WorkExperience/# Work history
-│   ├── shared/        # Shared components
-│   └── ui/            # UI components
-├── config/            # Configuration files
-├── contexts/          # React contexts
-├── hooks/             # Custom hooks
-├── lib/              # Utility libraries
-├── utils/            # Utility functions
-└── public/
-    └── content/      # Markdown content
-        ├── blog/     # Blog posts
-        ├── projects/ # Project details
-        └── work/     # Work experience
+├── App.js            # Layout: header, skip link, footer
+├── routes.js         # Route table (/, /work/:slug, redirects)
+├── routes.test.js    # Navigation tests
+├── content/site.js   # All site copy and project data
+├── pages/
+│   ├── Home.js       # Homepage
+│   └── Project.js    # /work/:slug detail page
+└── index.css         # Theme tokens and shared component classes
 ```
 
 ## Quick Start

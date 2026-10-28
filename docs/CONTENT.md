@@ -1,70 +1,46 @@
-# Content Management Guide
+# Content Guide
 
-## Content Types
+All site copy lives in one module: `src/content/site.js`. There is no markdown pipeline; edit the data and the pages pick it up.
 
-### Blog Posts
-Location: `public/content/blog/`
+## Rules
 
-```md
----
-title: Your Blog Title
-date: YYYY-MM-DD
-description: Brief description of the post
-tags: [tag1, tag2]
----
+- Every claim must trace to a public source linked next to it (a public repo, live site or public API docs).
+- Figures are quoted from the project's own README or public docs. Do not add usage, traction or uptime numbers that aren't published.
+- Never name Dvaita Technologies clients.
+- Don't copy details from private repositories into the site.
 
-Content in markdown format
+## What's in `site.js`
+
+| Export | Used for |
+| --- | --- |
+| `PROFILE` | Name, hero line, sub-heading, email, contact links |
+| `GLANCE` | "At a glance" rows on the homepage. An optional third item makes the value a link (`[label, value, '/work/slug']`) |
+| `STELLAROS`, `DVAITA` | The two "What I'm building now" tiles |
+| `PROJECTS` | Projects with a detail page at `/work/:slug`. They appear as Featured cards unless `featured: false` |
+| `INDEX` | The grouped work index. Items take `to` (internal page) or `href` (external, opens in a new tab) |
+
+### Adding a project page
+
+Add an entry to `PROJECTS`:
+
+```js
+{
+  slug: 'my-project',            // URL: /work/my-project
+  name: 'My Project',
+  kind: 'Dataset',               // small label above the title
+  year: '2026',
+  oneLiner: 'One sentence on what it is.',
+  image: 'https://…/og.png',     // or `stat: { value, caption }` for a text panel
+  imageAlt: 'Describe the image',
+  live: 'https://…',             // optional; `liveLabel` renames the button
+  source: 'https://github.com/…', // optional; omit for private repos
+  stack: ['Python'],
+  tags: ['Python'],              // shown on the Featured card
+  problem: 'The problem in two sentences.',
+  built: ['What you built, one item per line.'],
+  facts: ['Short facts from the README'],
+  figuresNote: 'Optional: where the figures come from.',
+}
 ```
 
-### Projects
-Location: `public/content/projects/`
-
-```md
----
-title: Project Name
-description: Project description
-tech: [Tech1, Tech2]
-github: repository-url (optional)
-demo: live-demo-url (optional)
----
-
-Project details in markdown
-```
-
-### Work Experience
-Location: `public/content/work/`
-
-```md
----
-company: Company Name
-role: Your Role
-period: Start Date - End Date
-location: City, Country
----
-
-Work description in markdown
-```
-
-## Adding Images
-
-1. Create a folder with same name as markdown file
-2. Place images in that folder
-3. Reference in markdown: `![alt text](./image.png)`
-
-## Markdown Features
-
-- Headers (h1-h6)
-- Lists (ordered/unordered)
-- Code blocks with syntax highlighting
-- Tables
-- Links
-- Images
-- Blockquotes
-- Bold/Italic text
-
-## Content Loading
-
-Content is loaded dynamically using:
-- `contentLoader.js` - Core loading logic
-- `frontmatterParser.js` - Parses frontmatter
-- Mapper utilities for each content type
+Then add the URL to `public/sitemap.xml`. If you rename a slug, add a redirect in `src/routes.js` so old links keep working.
