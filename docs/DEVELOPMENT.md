@@ -14,42 +14,24 @@
 
 ## Project Structure
 
-### Key Directories
+### Key Files
 
-- `src/components/` - React components organized by feature
-- `src/contexts/` - React context providers
-- `src/utils/` - Helper functions and utilities
-- `public/content/` - Markdown content files
+- `src/routes.js` - Route table; unknown and retired URLs redirect to `/`
+- `src/pages/` - Homepage and project detail page
+- `src/content/site.js` - All copy and project data (see [CONTENT.md](CONTENT.md))
 
 ### Component Guidelines
 
 - Use functional components with hooks
 - Keep components focused and single-responsibility
-- Place shared components in `src/components/shared/`
-- UI components go in `src/components/ui/`
 
 ## Available Scripts
 
 - `npm start` - Run development server
 - `npm test` - Run tests
-- `npm run build` - Create production build
+- `npm run build` - Create production build. With `CI=true` (set by most CI hosts), lint warnings fail the build.
 
 ## Styling
 
 - Uses Tailwind CSS for styling
-- Custom utilities in `src/lib/utils.js`
-- Theme configuration in `tailwind.config.js`
-
-## Content Management
-
-Content is managed through markdown files with frontmatter:
-
-```md
----
-title: Title
-date: YYYY-MM-DD
----
-Content
-```
-
-Content is loaded dynamically using the utilities in `src/utils/contentLoader.js`
+- Colour and radius tokens are CSS variables in `src/index.css`; fonts and extra colours are in `tailwind.config.js`

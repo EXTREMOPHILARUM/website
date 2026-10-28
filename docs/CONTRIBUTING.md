@@ -19,34 +19,4 @@
 
 ## Adding Content
 
-### Blog Posts
-Place in `public/content/blog/` with structure:
-```md
----
-title: Post Title
-date: YYYY-MM-DD
-description: Brief description
----
-Content here
-```
-
-### Projects
-Place in `public/content/projects/` with structure:
-```md
----
-title: Project Name
-description: Brief description
-tech: [Tech1, Tech2]
----
-Content here
-```
-
-### Work Experience
-Place in `public/content/work/` with structure:
-```md
----
-company: Company Name
-role: Your Role
-period: Start - End
----
-Content here
+See [CONTENT.md](CONTENT.md). All copy lives in `src/content/site.js`.

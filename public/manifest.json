@@ -1,6 +1,6 @@
 {
-  "short_name": "Portfolio",
-  "name": "Professional Portfolio & Blog",
+  "short_name": "Saurabh N",
+  "name": "Saurabh Nandedkar",
   "icons": [
     {
       "src": "favicon.ico",
@@ -22,8 +22,10 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff",
-  "categories": ["portfolio", "professional", "blog"],
-  "description": "Professional portfolio showcasing projects, work experience, and technical blog posts"
+  "theme_color": "#F6F5F1",
+  "background_color": "#F6F5F1",
+  "categories": [
+    "personal"
+  ],
+  "description": "Saurabh Nandedkar builds software that turns messy public data into tools people can use. Founder of StellarOS and Dvaita Technologies, Mumbai."
 }

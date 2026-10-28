@@ -1,42 +1,51 @@
-import React, { lazy, Suspense } from 'react';
-// import { useParams } from 'react-router-dom';
-import Loading from './components/Loading/Loading';
-import { ThemeProvider } from './contexts/ThemeContext';
+import React, { useEffect } from 'react';
+import { Link, Outlet, useLocation } from 'react-router-dom';
+import { PROFILE } from './content/site';
 
-// Lazy load components
-const Hero = lazy(() => import('./components/Hero/Hero'));
-const Skills = lazy(() => import('./components/Skills/Skills'));
-const Projects = lazy(() => import('./components/Projects/Projects'));
-// const WorkExperience = lazy(() => import('./components/WorkExperience/WorkExperience'));
-const Blog = lazy(() => import('./components/Blog/Blog'));
-const Contact = lazy(() => import('./components/Contact/Contact'));
-const Footer = lazy(() => import('./components/Footer/Footer'));
-const Pricing = lazy(() => import('./components/Pricing/Pricing'));
+const NAV = [
+  { to: '/#now', label: 'Now', wide: true },
+  { to: '/#featured', label: 'Featured', wide: true },
+  { to: '/#index', label: 'Index' },
+];
 
-function App() {
-  // const { slug } = useParams();
+const App = () => {
+  const { pathname, hash } = useLocation();
+
+  // Router navigation doesn't reset scroll; hash targets are scrolled by Home.
+  useEffect(() => {
+    if (!hash) window.scrollTo(0, 0);
+  }, [pathname, hash]);
 
   return (
-    <ThemeProvider>
-      <div className="min-h-screen bg-background font-sans antialiased">
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Suspense fallback={<Loading />}>
-            <Hero />
-            <Skills />
-            
-            {/* <Pricing /> */}
-            {/* <WorkExperience /> */}
-            <Blog />
-            <Projects />
-            <Contact />
-          </Suspense>
-        </main>
-        <Suspense fallback={<Loading />}>
-          <Footer />
-        </Suspense>
-      </div>
-    </ThemeProvider>
+    <div className="min-h-screen overflow-x-clip">
+      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-3 focus:z-20 focus:rounded-md focus:bg-foreground focus:px-3 focus:py-2 focus:text-background">
+        Skip to content
+      </a>
+      <header className="sticky top-0 z-10 border-b border-border bg-background/90 backdrop-blur">
+        <div className="mx-auto flex h-[60px] max-w-[1080px] items-center justify-between px-5 sm:px-6">
+          <Link to="/" className="inline-flex min-h-[44px] items-center font-semibold tracking-[-0.01em]">
+            {PROFILE.name}<span aria-hidden="true" className="text-accent">.</span>
+          </Link>
+          <nav aria-label="Primary" className="flex items-center gap-0.5 text-sm">
+            {NAV.map((n) => (
+              <Link key={n.to} to={n.to} className={`${n.wide ? 'hidden sm:inline-flex' : 'inline-flex'} min-h-[40px] items-center rounded-lg px-3 text-muted-foreground hover:bg-secondary hover:text-foreground`}>
+                {n.label}
+              </Link>
+            ))}
+            <Link to="/#contact" className="ml-1.5 inline-flex min-h-[40px] items-center rounded-lg bg-foreground px-3 text-background">
+              Contact
+            </Link>
+          </nav>
+        </div>
+      </header>
+      <main id="main" className="mx-auto max-w-[1080px] px-5 sm:px-6">
+        <Outlet />
+      </main>
+      <footer className="mx-auto max-w-[1080px] px-5 pb-10 font-mono text-xs text-muted-foreground sm:px-6">
+        © {new Date().getFullYear()} {PROFILE.name} · Mumbai
+      </footer>
+    </div>
   );
-}
+};
 
 export default App;
